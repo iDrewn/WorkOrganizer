@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WorkOrganizer.Domain.Entities;
+using WorkOrganizer.Domain.Services;
 
 namespace WorkOrganizer.Controllers
 {
@@ -45,20 +43,20 @@ namespace WorkOrganizer.Controllers
             return Ok(allProjects);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetById()
-        {
-            var allProjectsById = await projectService.GetProjectByTitle();
+        //[HttpGet]
+        //public async Task<IActionResult> GetById(int id)
+        //{
+        //    var allProjectsById = await projectService.GetProjectByTitle(id);
 
-            return Ok(allProjectsById);
-        }
+        //    return Ok(allProjectsById);
+        //}
 
-        [HttpPut]
-        public async Task<IActionResult> PutProject(Project project)
-        {
-            var newProject = await projectService.EditProject(project.Name, project.StartDate, project.Description);
+        //[HttpPut]
+        //public async Task<IActionResult> PutProject(Project project)
+        //{
+        //    var newProject = await projectService.EditProject(project.Name, project.StartDate, project.Description);
 
-            return Created($"{project.Name}, {project.StartDate}, {project.Description}", newProject);
-        }
+        //    return Created($"{project.Name}, {project.StartDate}, {project.Description}", newProject);
+        //}
     }
 }

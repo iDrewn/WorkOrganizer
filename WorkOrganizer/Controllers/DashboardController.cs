@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ProMan.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;
