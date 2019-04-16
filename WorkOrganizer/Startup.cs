@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using WorkOrganizer.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WorkOrganizer.Domain.Repositories;
+using WorkOrganizer.Domain.Services;
 
 namespace WorkOrganizer
 {
@@ -42,6 +44,13 @@ namespace WorkOrganizer
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //Repositories
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+
+            //Services
+            services.AddScoped<IProjectService, ProjectService>();
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
