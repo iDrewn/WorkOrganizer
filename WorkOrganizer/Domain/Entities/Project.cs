@@ -8,5 +8,7 @@ namespace WorkOrganizer.Domain.Entities
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public string Description { get; set; }
+
+        // work IList
     }
 }
