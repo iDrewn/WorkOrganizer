@@ -8,10 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using WorkOrganizer.Data;
 using WorkOrganizer.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
+using WorkOrganizer.Unility;
 
 namespace ProMan.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    [Authorize(Roles = SD.SuperAdminEndUser)]
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;

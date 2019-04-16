@@ -1,0 +1,70 @@
+﻿@model IEnumerable<WorkOrganizer.Domain.Entities.User>
+
+@*@model IEnumerable<Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext>
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore;*@
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Admin Dashboard</h1>
+</div>
+<hr />
+<div class=" float-sm-left">
+    <div class="ui segment" style="width: 100% !important;">
+        <p class="font-pr-bold">Menu</p>
+        <hr>
+        <p class="font-pr"<span><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Users</a></span></p>
+        <hr>
+    </div>
+    <hr class="d-sm-none">
+</div>
+
+<p class="float-right">
+    <input type="button" value="Create new user" class=" btn btn-primary" onclick="location.href='@Url.Action("Create", "Users")'" />
+
+</p>
+<br />
+<table class="table float-right" style="width:80%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SocialSecurityNumber)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Email)*@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SocialSecurityNumber)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Email)*@
+                </td>
+                @*<td>
+                    <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.UserId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.UserId">Delete</a>
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>

@@ -12,7 +12,7 @@ namespace WorkOrganizer.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize(Roles = SD.SuperAdminEndUser)]
+        [Authorize]
         public IActionResult Index()
         {
             return View();
