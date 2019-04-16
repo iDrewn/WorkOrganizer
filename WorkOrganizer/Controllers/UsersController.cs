@@ -7,7 +7,7 @@
 
 //namespace WorkOrganizer.Controllers
 //{
-//    //[Route("Dashboard/[controller]")]
+//    [Route("Dashboard/[controller]")]
 //    public class UsersController : Controller
 //    {
 //        private readonly ApplicationDbContext _context;
@@ -17,13 +17,13 @@
 //            _context = context;
 //        }
 
-//        // GET: Users
+//        GET: Users
 //        public async Task<IActionResult> Index()
 //        {
 //            return View(await _context.User.ToListAsync());
 //        }
 
-//        // GET: Users/Details/5
+//        GET: Users/Details/5
 //        public async Task<IActionResult> Details(int? id)
 //        {
 //            if (id == null)
@@ -41,15 +41,15 @@
 //            return View(user);
 //        }
 
-//        // GET: Users/Create
+//        GET: Users/Create
 //        public IActionResult Create()
 //        {
 //            return View();
 //        }
 
-//        // POST: Users/Create
-//        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-//        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+//        POST: Users/Create
+//        To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+//         more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 //        [HttpPost]
 //        [ValidateAntiForgeryToken]
 //        public async Task<IActionResult> Create([Bind("Id,Firstname,Lastname,SocialSecurityNumber,Email,Password")] User user)
@@ -63,7 +63,7 @@
 //            return View(user);
 //        }
 
-//        // GET: Users/Edit/5
+//        GET: Users/Edit/5
 //        public async Task<IActionResult> Edit(int? userId)
 //        {
 //            if (userId == null)
@@ -79,9 +79,9 @@
 //            return View(user);
 //        }
 
-//        // POST: Users/Edit/5
-//        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-//        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+//        POST: Users/Edit/5
+//         To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+//         more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 //        [HttpPost]
 //        [ValidateAntiForgeryToken]
 //        public async Task<IActionResult> Edit(int id, [Bind("Id,Firstname,Lastname,SocialSecurityNumber")] User user)
@@ -114,7 +114,7 @@
 //            return View(user);
 //        }
 
-//        // GET: Users/Delete/5
+//        GET: Users/Delete/5
 //        public async Task<IActionResult> Delete(int? id)
 //        {
 //            if (id == null)
@@ -132,7 +132,7 @@
 //            return View(user);
 //        }
 
-//        // POST: Users/Delete/5
+//        POST: Users/Delete/5
 //        [HttpPost, ActionName("Delete")]
 //        [ValidateAntiForgeryToken]
 //        public async Task<IActionResult> DeleteConfirmed(int id)

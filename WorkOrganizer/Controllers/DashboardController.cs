@@ -13,7 +13,7 @@ using WorkOrganizer.Unility;
 namespace ProMan.Controllers
 {
     //[Authorize]
-    [Authorize(Roles = SD.SuperAdminEndUser)]
+    //[Authorize(Roles = SD.SuperAdminEndUser)]
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;
