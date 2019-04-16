@@ -13,7 +13,12 @@ using Microsoft.EntityFrameworkCore;
 using WorkOrganizer.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using Microsoft.Extensions.Logging;
+
+using WorkOrganizer.Domain.Repositories;
+using WorkOrganizer.Domain.Services;
+
 
 namespace WorkOrganizer
 {
@@ -47,50 +52,57 @@ namespace WorkOrganizer
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
+            //Repositories
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+
+            //Services
+            services.AddScoped<IProjectService, ProjectService>();
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
 
 
 
-            // create user rolles
-            //private async Task CreateUserRoles(IServiceProvider serviceProvider)
-            //{
-            //    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            //    var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+        // create user rolles
+        //private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        //{
+        //    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        //    var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-            //    string[] roleNames = { "Admin", "User" };
-            //    IdentityResult roleResult;
+        //    string[] roleNames = { "Admin", "User" };
+        //    IdentityResult roleResult;
 
-            //    foreach (var roleName in roleNames)
-            //    {
-            //        var roleExist = await roleManager.RoleExistsAsync(roleName);
+        //    foreach (var roleName in roleNames)
+        //    {
+        //        var roleExist = await roleManager.RoleExistsAsync(roleName);
 
-            //        if (!roleExist)
-            //        {
-            //            roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
-            //        }
-            //    }
+        //        if (!roleExist)
+        //        {
+        //            roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+        //        }
+        //    }
 
-            //    var poweruser = new IdentityUser
-            //    {
-            //        UserName = Configuration.GetSection("AppSettings")["UserEmail"],
-            //        Email = Configuration.GetSection("AppSettings")["UserEmail"]
-            //    };
+        //    var poweruser = new IdentityUser
+        //    {
+        //        UserName = Configuration.GetSection("AppSettings")["UserEmail"],
+        //        Email = Configuration.GetSection("AppSettings")["UserEmail"]
+        //    };
 
-            //    string userPassword = Configuration.GetSection("AppSettings")["UserPassword"];
-            //    var user = await userManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["UserPassword"]);
+        //    string userPassword = Configuration.GetSection("AppSettings")["UserPassword"];
+        //    var user = await userManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["UserPassword"]);
 
-            //    if (user == null)
-            //    {
-            //        var createPowerUser = await userManager.CreateAsync(poweruser, userPassword);
-            //        if (createPowerUser.Succeeded)
-            //        {
-            //            await userManager.AddToRoleAsync(poweruser, "Admin");
-            //        }
-            //    }
-            //}
-        
+        //    if (user == null)
+        //    {
+        //        var createPowerUser = await userManager.CreateAsync(poweruser, userPassword);
+        //        if (createPowerUser.Succeeded)
+        //        {
+        //            await userManager.AddToRoleAsync(poweruser, "Admin");
+        //        }
+        //    }
+        //}
+
 
 
 
