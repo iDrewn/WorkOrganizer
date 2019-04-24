@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace WorkOrganizer.Domain.Entities
 {
@@ -8,6 +9,9 @@ namespace WorkOrganizer.Domain.Entities
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public string Description { get; set; }
+
+        public IdentityUser User { get; set; }
+        public DateTime EndDate { get; set; }
 
         // work IList
     }
