@@ -1,26 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WorkOrganizer.Data;
 using WorkOrganizer.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using WorkOrganizer.Unility;
+using System.Security.Claims;
+using WorkOrganizer.Domain.Services;
 
 namespace ProMan.Controllers
 {
-    //[Authorize]
+    [Authorize]
     //[Authorize(Roles = SD.SuperAdminEndUser)]
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DashboardController(ApplicationDbContext context)
+        private readonly IProjectService projectService;
+
+        public DashboardController(ApplicationDbContext context, IProjectService projectService)
         {
             _context = context;
+            this.projectService = projectService;
         }
 
         // GET: Dashboard
@@ -32,7 +34,13 @@ namespace ProMan.Controllers
         // GET: Dashboard/Projects
         public async Task<IActionResult> Projects()
         {
-            return View(await _context.Project.ToListAsync());
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var userIdGuid = new Guid(userId);
+
+            var allProjects = await projectService.GetProjectsByUserId(userIdGuid);
+
+            return View(allProjects);
         }
 
         // GET: Dashboard/ProjectDetails/5

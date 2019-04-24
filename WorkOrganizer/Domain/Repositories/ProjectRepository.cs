@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -73,6 +74,13 @@ namespace WorkOrganizer.Domain.Repositories
         public async Task<Project> GetByTitle(int id, string name)
         {
             return await _context.Project.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<IEnumerable<Project>> GetAllByUserId(Guid userId)
+        {
+            var projects = _context.Project.Where(x => x.IdentityUserId == userId.ToString());
+
+            return await projects.ToListAsync();
         }
     }
 }

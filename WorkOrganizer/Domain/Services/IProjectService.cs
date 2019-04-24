@@ -13,5 +13,6 @@ namespace WorkOrganizer.Domain.Services
         Task<bool> DeleteProject(int id);
         Task<IEnumerable<Project>> ListAllProject();
         Task<Project> GetProjectByTitle(int id, string name);
+        Task<IEnumerable<Project>> GetProjectsByUserId(Guid userId);
     }
 }

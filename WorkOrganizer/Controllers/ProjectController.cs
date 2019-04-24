@@ -1,15 +1,19 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WorkOrganizer.Domain.Entities;
 using WorkOrganizer.Domain.Services;
 
 namespace WorkOrganizer.Controllers
 {
+    [Authorize]
     public class ProjectController : Controller
     {
-        private readonly ProjectService projectService;
+        private readonly IProjectService projectService;
 
-        public ProjectController(ProjectService projectService)
+        public ProjectController(IProjectService projectService)
         {
             this.projectService = projectService;
         }
@@ -38,10 +42,20 @@ namespace WorkOrganizer.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var allProjects = await projectService.ListAllProject();
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var userIdGuid = new Guid(userId);
+
+            var allProjects = await projectService.GetProjectsByUserId(userIdGuid);
 
             return Ok(allProjects);
         }
+
+        //[HttpGet]
+        //public async Task<IEnumerable<Project>> GetAll(string OnlineUserId)
+        //{
+        //    //return await _dbContext.Projects.Where(x => x.IdentityUserId == onlineUserId);
+        //}
 
         //[HttpGet]
         //public async Task<IActionResult> GetById(int id)

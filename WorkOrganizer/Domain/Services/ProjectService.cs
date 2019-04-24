@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WorkOrganizer.Domain.Entities;
@@ -38,8 +39,15 @@ namespace WorkOrganizer.Domain.Services
         public Task<Project> EditProject(int projectId, string name, DateTime startDate, string description)
         {
             var project = _projectRepository.EditProject(projectId, name, startDate, description);
-            return project;
 
+            return project;
+        }
+
+        public Task<IEnumerable<Project>> GetProjectsByUserId(Guid userId)
+        {
+            var projects = _projectRepository.GetAllByUserId(userId);
+
+            return projects;
         }
     }
 }

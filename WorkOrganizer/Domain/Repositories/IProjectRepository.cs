@@ -13,5 +13,6 @@ namespace WorkOrganizer.Domain.Repositories
         Task<bool> DeleteAsync(int id);
         Task<IEnumerable<Project>> GetAsync();
         Task<Project> GetByTitle(int id, string name);
+        Task<IEnumerable<Project>> GetAllByUserId(Guid userId);
     }
 }

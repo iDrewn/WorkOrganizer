@@ -13,6 +13,6 @@ namespace WorkOrganizer.Data
             : base(options)
         {
         }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; } // add
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; } 
     }
 }
