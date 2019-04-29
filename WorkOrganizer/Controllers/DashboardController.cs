@@ -1,38 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WorkOrganizer.Data;
 using WorkOrganizer.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using WorkOrganizer.Unility;
+using System.Security.Claims;
+using WorkOrganizer.Domain.Services;
 
 namespace ProMan.Controllers
 {
-    //[Authorize]
-    [Authorize(Roles = SD.SuperAdminEndUser)]
+    [Authorize]
+    //[Authorize(Roles = SD.SuperAdminEndUser)]
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DashboardController(ApplicationDbContext context)
+        private readonly IProjectService projectService;
+
+        public DashboardController(IProjectService projectService)
         {
-            _context = context;
+            
+            this.projectService = projectService;
         }
 
         // GET: Dashboard
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Project.ToListAsync());
+            //return View(await _context.Project.ToListAsync());
+
+            return View(await projectService.ListAllProject());
         }
 
         // GET: Dashboard/Projects
         public async Task<IActionResult> Projects()
         {
-            return View(await _context.Project.ToListAsync());
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var userIdGuid = new Guid(userId);
+
+            var allProjects = await projectService.GetProjectsByUserId(userIdGuid.ToString());
+
+            return View(allProjects);
         }
 
         // GET: Dashboard/ProjectDetails/5
@@ -64,15 +74,30 @@ namespace ProMan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateProject([Bind("Id,Name,StartDate,Description")] Project project)
+        public IActionResult CreateProject([Bind("Id,Name,StartDate,Description,IdentityUserId")] Project project) 
         {
+
             if (ModelState.IsValid)
             {
-                _context.Add(project);
-                await _context.SaveChangesAsync();
+                var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+               
+
+                var newProject = projectService.CreateProject(project.Name, project.StartDate, project.Description, userId);
+
                 return RedirectToAction(nameof(Index));
+
+
             }
             return View(project);
+
+            //if (ModelState.IsValid)
+            //{
+            //    _context.Add(project);
+            //    await _context.SaveChangesAsync();
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //return View(project);
         }
 
         // GET: Dashboard/EditProject/5

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WorkOrganizer.Domain.Entities;
@@ -18,9 +19,9 @@ namespace WorkOrganizer.Domain.Services
 
 
         [HttpPost]
-        public async Task<Project> CreateProject(string name, DateTime startDate, string description)
+        public async Task<Project> CreateProject(string name, DateTime startDate, string description, string identityUserId)
         {
-            return await _projectRepository.CreateAsync(name, startDate, description);
+            return await _projectRepository.Create(name, startDate, description, identityUserId);
         }
         public async Task<bool> DeleteProject(int id)
         {
@@ -39,7 +40,15 @@ namespace WorkOrganizer.Domain.Services
         {
             var project = _projectRepository.EditProject(projectId, name, startDate, description);
             return project;
-
         }
+
+        public Task<IEnumerable<Project>> GetProjectsByUserId(string userId)
+        {
+            var projects = _projectRepository.GetAllByUserId(userId);
+
+            return projects;
+        }
+
+ 
     }
 }
