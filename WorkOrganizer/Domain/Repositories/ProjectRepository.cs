@@ -17,7 +17,6 @@ namespace WorkOrganizer.Domain.Repositories
             _context = context;
         }
 
-        [HttpPost]
         public async Task<Project> CreateAsync(string name, DateTime startDate, string description)
         {
             var newProject = new Project();
@@ -32,11 +31,7 @@ namespace WorkOrganizer.Domain.Repositories
             return newProject;
         }
 
-        public async Task<Project> EditProject(
-     int ProjectId,
-     string name,
-     DateTime startDate,
-     string description)
+        public async Task<Project> EditProject(int ProjectId, string name, DateTime startDate, string description)
         {
             var updateProject = await _context.Project.FindAsync(ProjectId);
             updateProject.Name = name;
