@@ -19,16 +19,18 @@ namespace ProMan.Controllers
 
         private readonly IProjectService projectService;
 
-        public DashboardController(ApplicationDbContext context, IProjectService projectService)
+        public DashboardController(IProjectService projectService)
         {
-            _context = context;
+            
             this.projectService = projectService;
         }
 
         // GET: Dashboard
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Project.ToListAsync());
+            //return View(await _context.Project.ToListAsync());
+
+            return View(await projectService.ListAllProject());
         }
 
         // GET: Dashboard/Projects
@@ -38,7 +40,7 @@ namespace ProMan.Controllers
 
             var userIdGuid = new Guid(userId);
 
-            var allProjects = await projectService.GetProjectsByUserId(userIdGuid);
+            var allProjects = await projectService.GetProjectsByUserId(userIdGuid.ToString());
 
             return View(allProjects);
         }
@@ -72,15 +74,30 @@ namespace ProMan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateProject([Bind("Id,Name,StartDate,Description")] Project project)
+        public IActionResult CreateProject([Bind("Id,Name,StartDate,Description,IdentityUserId")] Project project) 
         {
+
             if (ModelState.IsValid)
             {
-                _context.Add(project);
-                await _context.SaveChangesAsync();
+                var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+               
+
+                var newProject = projectService.CreateProject(project.Name, project.StartDate, project.Description, userId);
+
                 return RedirectToAction(nameof(Index));
+
+
             }
             return View(project);
+
+            //if (ModelState.IsValid)
+            //{
+            //    _context.Add(project);
+            //    await _context.SaveChangesAsync();
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //return View(project);
         }
 
         // GET: Dashboard/EditProject/5

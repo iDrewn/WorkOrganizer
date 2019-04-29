@@ -19,13 +19,15 @@ namespace WorkOrganizer.Domain.Repositories
         }
 
         [HttpPost]
-        public async Task<Project> CreateAsync(string name, DateTime startDate, string description)
+        public async Task<Project> Create(string name, DateTime startDate, string description, string identityUserId)
         {
             var newProject = new Project();
 
             newProject.Name = name;
             newProject.StartDate = startDate;
             newProject.Description = description;
+            newProject.IdentityUserId = identityUserId;
+            
 
             _context.Project.Add(newProject);
 
@@ -34,10 +36,10 @@ namespace WorkOrganizer.Domain.Repositories
         }
 
         public async Task<Project> EditProject(
-     int ProjectId,
-     string name,
-     DateTime startDate,
-     string description)
+             int ProjectId,
+             string name,
+             DateTime startDate,
+             string description)
         {
             var updateProject = await _context.Project.FindAsync(ProjectId);
             updateProject.Name = name;
@@ -76,11 +78,15 @@ namespace WorkOrganizer.Domain.Repositories
             return await _context.Project.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<Project>> GetAllByUserId(Guid userId)
+        public async Task<IEnumerable<Project>> GetAllByUserId(string userId)
         {
-            var projects = _context.Project.Where(x => x.IdentityUserId == userId.ToString());
+            var projects = _context.Project.Where(x => x.IdentityUserId == userId);
 
             return await projects.ToListAsync();
         }
+
+        
+
+      
     }
 }

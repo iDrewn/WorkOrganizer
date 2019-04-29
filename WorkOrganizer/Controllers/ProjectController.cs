@@ -21,9 +21,13 @@ namespace WorkOrganizer.Controllers
         [HttpPost]
         public async Task<IActionResult> PostProject(Project project)
         {
-            var newProject = await projectService.CreateProject(project.Name, project.StartDate, project.Description);
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            return Created($"{project.Name}, {project.StartDate}, {project.Description}", newProject);
+            var IdentityUserId = new Guid(userId);
+
+            var newProject = await projectService.CreateProject(project.Name, project.StartDate, project.Description, IdentityUserId.ToString()); 
+
+            return Created($"{project.Name}, {project.StartDate}, {project.Description}, {project.IdentityUserId}", newProject); 
         }
 
         [HttpDelete("{id}")]
@@ -45,8 +49,8 @@ namespace WorkOrganizer.Controllers
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             var userIdGuid = new Guid(userId);
-
-            var allProjects = await projectService.GetProjectsByUserId(userIdGuid);
+            
+            var allProjects = await projectService.GetProjectsByUserId(userIdGuid.ToString());
 
             return Ok(allProjects);
         }
