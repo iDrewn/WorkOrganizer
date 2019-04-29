@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,8 @@ namespace WorkOrganizer.Areas.API.Controllers
 {
     [Route("api/[controller]")]
 
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]     //Är detta rätt kod??
+                                                                        
     [ApiController]
     public class ProjectsController : ControllerBase
     {
@@ -73,7 +75,7 @@ namespace WorkOrganizer.Areas.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Project>> PostProject(Project project)
         {
-            var newProject = await projectService.CreateProject(project.Name, project.StartDate, project.Description);
+            var newProject = await projectService.CreateProject(project.Name, project.StartDate, project.Description, project.IdentityUserId);
 
             return Created($"/api/projects/{newProject.Id}", newProject);
         }
