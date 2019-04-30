@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WorkOrganizer.Data.Migrations
 {
-    public partial class first : Migration
+    public partial class AddProject : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

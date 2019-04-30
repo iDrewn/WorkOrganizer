@@ -15,7 +15,7 @@ namespace WorkOrganizer.Areas.API.Controllers
 {
     [Route("api/[controller]")]
 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]     //Är detta rätt kod??
+   // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]     //Är detta rätt kod??
                                                                         
     [ApiController]
     public class ProjectsController : ControllerBase
@@ -37,10 +37,7 @@ namespace WorkOrganizer.Areas.API.Controllers
             return Ok(listProjects); 
         }
 
-
-
-
-
+  
 
 
         // GET: api/Projects/5                                         
