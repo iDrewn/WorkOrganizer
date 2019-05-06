@@ -76,7 +76,8 @@ namespace WorkOrganizer
             services.AddScoped<IProjectRepository, ProjectRepository>();
 
             //Services
-            services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<Domain.Services.IProjectService, Domain.Services.ProjectService>();
+            services.AddScoped<Areas.API.Services.IProjectService, Areas.API.Services.ProjectService>();
             services.AddScoped<ITokenService, TokenService>();
 
 

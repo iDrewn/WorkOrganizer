@@ -3,26 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WorkOrganizer.Data.Migrations
 {
-    public partial class AddIdentityUserAndEndDateToProject : Migration
+    public partial class AddUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Firstname",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropColumn(
-                name: "Lastname",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropColumn(
-                name: "SocialSecurityNumber",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropColumn(
-                name: "UserId",
-                table: "AspNetUsers");
-
             migrationBuilder.AddColumn<DateTime>(
                 name: "EndDate",
                 table: "Project",
@@ -30,7 +14,7 @@ namespace WorkOrganizer.Data.Migrations
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<string>(
-                name: "UserId",
+                name: "IdentityUserId",
                 table: "Project",
                 nullable: true);
 
@@ -47,6 +31,32 @@ namespace WorkOrganizer.Data.Migrations
                 nullable: false,
                 oldClrType: typeof(string),
                 oldMaxLength: 128);
+
+            migrationBuilder.AddColumn<string>(
+                name: "Discriminator",
+                table: "AspNetUsers",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Firstname",
+                table: "AspNetUsers",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "Lastname",
+                table: "AspNetUsers",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "Name",
+                table: "AspNetUsers",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "SocialSecurityNumber",
+                table: "AspNetUsers",
+                nullable: true);
 
             migrationBuilder.AlterColumn<string>(
                 name: "ProviderKey",
@@ -63,14 +73,14 @@ namespace WorkOrganizer.Data.Migrations
                 oldMaxLength: 128);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Project_UserId",
+                name: "IX_Project_IdentityUserId",
                 table: "Project",
-                column: "UserId");
+                column: "IdentityUserId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Project_AspNetUsers_UserId",
+                name: "FK_Project_AspNetUsers_IdentityUserId",
                 table: "Project",
-                column: "UserId",
+                column: "IdentityUserId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
@@ -79,11 +89,11 @@ namespace WorkOrganizer.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Project_AspNetUsers_UserId",
+                name: "FK_Project_AspNetUsers_IdentityUserId",
                 table: "Project");
 
             migrationBuilder.DropIndex(
-                name: "IX_Project_UserId",
+                name: "IX_Project_IdentityUserId",
                 table: "Project");
 
             migrationBuilder.DropColumn(
@@ -91,8 +101,28 @@ namespace WorkOrganizer.Data.Migrations
                 table: "Project");
 
             migrationBuilder.DropColumn(
-                name: "UserId",
+                name: "IdentityUserId",
                 table: "Project");
+
+            migrationBuilder.DropColumn(
+                name: "Discriminator",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "Firstname",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "Lastname",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "Name",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "SocialSecurityNumber",
+                table: "AspNetUsers");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
@@ -107,26 +137,6 @@ namespace WorkOrganizer.Data.Migrations
                 maxLength: 128,
                 nullable: false,
                 oldClrType: typeof(string));
-
-            migrationBuilder.AddColumn<string>(
-                name: "Firstname",
-                table: "AspNetUsers",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Lastname",
-                table: "AspNetUsers",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "SocialSecurityNumber",
-                table: "AspNetUsers",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "UserId",
-                table: "AspNetUsers",
-                nullable: true);
 
             migrationBuilder.AlterColumn<string>(
                 name: "ProviderKey",
