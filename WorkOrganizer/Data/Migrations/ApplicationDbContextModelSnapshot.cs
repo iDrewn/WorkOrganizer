@@ -195,15 +195,15 @@ namespace WorkOrganizer.Data.Migrations
 
                     b.Property<DateTime>("EndDate");
 
+                    b.Property<string>("IdentityUserId");
+
                     b.Property<string>("Name");
 
                     b.Property<DateTime>("StartDate");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("IdentityUserId");
 
                     b.ToTable("Project");
                 });
@@ -212,7 +212,16 @@ namespace WorkOrganizer.Data.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("Firstname")
+                        .IsRequired();
+
+                    b.Property<string>("Lastname")
+                        .IsRequired();
+
                     b.Property<string>("Name");
+
+                    b.Property<string>("SocialSecurityNumber")
+                        .IsRequired();
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -266,7 +275,7 @@ namespace WorkOrganizer.Data.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("IdentityUserId");
                 });
 #pragma warning restore 612, 618
         }

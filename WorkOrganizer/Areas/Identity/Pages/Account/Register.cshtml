@@ -19,7 +19,22 @@
                 <span asp-validation-for="Input.Name" class="text-danger"></span>
             </div>
 
-            
+            <div class="form-group">
+                <label asp-for="Input.Firstname"></label>
+                <input asp-for="Input.Firstname" class="form-control" />
+                <span asp-validation-for="Input.Firstname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Lastname"></label>
+                <input asp-for="Input.Lastname" class="form-control" />
+                <span asp-validation-for="Input.Lastname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.SocialSecurityNumber"></label>
+                <input asp-for="Input.SocialSecurityNumber" class="form-control" />
+                <span asp-validation-for="Input.SocialSecurityNumber" class="text-danger"></span>
+            </div>
+
 
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
@@ -40,7 +55,7 @@
             <div class="form-group">
                 <label asp-for="Input.IsSuperAdmin"></label>
                 <input asp-for="Input.IsSuperAdmin" type="checkbox" class="form-control" />
-             
+
             </div>
 
             <button type="submit" class="btn btn-primary">Register</button>

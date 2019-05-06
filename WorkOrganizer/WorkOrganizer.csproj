@@ -11,9 +11,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Dashboard\ReportedJobs.cshtml" />
+    <Compile Remove="Data\Migrations\20190415132932_UserEntity.cs" />
+    <Compile Remove="Data\Migrations\20190415132932_UserEntity.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190416122427_addFirstName.LastName.SSN.cs" />
+    <Compile Remove="Data\Migrations\20190416122427_addFirstName.LastName.SSN.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190418101358_AddIdentityUserID.EndDate.cs" />
+    <Compile Remove="Data\Migrations\20190418101358_AddIdentityUserID.EndDate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190418194249_changeIdentityUserIdFromintToString.cs" />
+    <Compile Remove="Data\Migrations\20190418194249_changeIdentityUserIdFromintToString.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190424115846_AddIdentityUserAndEndDateToProject.cs" />
+    <Compile Remove="Data\Migrations\20190424115846_AddIdentityUserAndEndDateToProject.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190429080603_stringToGuid.cs" />
+    <Compile Remove="Data\Migrations\20190429080603_stringToGuid.Designer.cs" />
   </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
