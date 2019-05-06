@@ -10,8 +10,8 @@ using WorkOrganizer.Data;
 namespace WorkOrganizer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190409095605_first")]
-    partial class first
+    [Migration("20190409095605_AddProject")]
+    partial class AddProject
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

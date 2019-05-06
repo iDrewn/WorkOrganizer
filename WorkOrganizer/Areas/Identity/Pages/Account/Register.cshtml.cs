@@ -14,8 +14,6 @@ using WorkOrganizer.Unility;
 
 namespace WorkOrganizer.Areas.Identity.Pages.Account
 {
-//[Authorize(Roles = SD.SuperAdminEndUser)]
-
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -62,7 +60,17 @@ namespace WorkOrganizer.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             [Required]
+            [Display(Name = "Title ex. Admin or User")]
             public string Name { get; set; }
+
+            [Required]
+            public string Firstname { get; set; }
+
+            [Required]
+            public string Lastname { get; set; }
+
+            [Required]
+            public string SocialSecurityNumber { get; set; }
 
 
             [Display(Name = "Super Admin")]
@@ -81,7 +89,8 @@ namespace WorkOrganizer.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Name = Input.Name };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email,
+                    Name = Input.Name, Firstname = Input.Firstname, Lastname = Input.Lastname, SocialSecurityNumber = Input.SocialSecurityNumber };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
