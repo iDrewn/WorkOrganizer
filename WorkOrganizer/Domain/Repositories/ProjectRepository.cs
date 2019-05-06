@@ -108,5 +108,18 @@ namespace WorkOrganizer.Domain.Repositories
             var proj = _context.Project.FirstOrDefaultAsync(x => x.Id == id);
             return proj;
         }
+
+        public async Task<IEnumerable<Project>> SearchProject(string searchString)
+        {
+            var searchProjects =  _context.Project.Where(s => s.Name.Contains(searchString));
+            return searchProjects;
+
+            //var projects = from n in _context.Project select n;
+
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    projects = _context.Project.Where(s => s.Name.Contains(searchString));
+            //}
+        }
     }
 }

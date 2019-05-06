@@ -18,5 +18,6 @@ namespace WorkOrganizer.Domain.Repositories
         Task<Project> FindProjectById(int? id);
         Task<Project> UpdateProjectById(Project project);
         Task<Project> ProjectDetalisByIdAsync(int? id);
+        Task<IEnumerable<Project>> SearchProject(string searchString);
     }
 }

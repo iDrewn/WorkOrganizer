@@ -20,20 +20,25 @@ namespace ProMan.Controllers
 
         public DashboardController(IProjectService projectService)
         {
-            
+
             this.projectService = projectService;
         }
 
         // GET: Dashboard
         public async Task<IActionResult> Index()
         {
-            //return View(await _context.Project.ToListAsync());
             return View(await projectService.ListAllProject());
         }
 
         // GET: Dashboard/Projects
-        public async Task<IActionResult> Projects()
+        public async Task<IActionResult> Projects(string searchString)
         {
+            var searchProjects = await projectService.SearchProjectAsync(searchString);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return View(searchProjects);
+            }
+
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             var userIdGuid = new Guid(userId);
