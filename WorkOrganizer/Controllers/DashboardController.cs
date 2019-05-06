@@ -70,7 +70,7 @@ namespace ProMan.Controllers
             {
                 _context.Add(project);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Projects));
             }
             return View(project);
         }
