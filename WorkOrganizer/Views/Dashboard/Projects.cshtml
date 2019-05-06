@@ -5,14 +5,12 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Admin Dashboard</h1>
+    <h1 class="display-4">Projects</h1>
 </div>
 
 <div class=" float-sm-left">
     <div class="ui segment" style="width: 100% !important;">
-        <p class="font-pr-bold">Menu</p>
-        <hr>
-        <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Projects</a></p>
+        <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Projects</a></span></p>
         <hr>
     </div>
     <hr class="d-sm-none">
@@ -51,9 +49,9 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    <a asp-action="EditProject" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="ProjectDetails" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="DeleteProject" asp-route-id="@item.Id">Delete</a>
+                    @* <a asp-action="EditProject" asp-route-id="@item.Id">Edit</a> | *@
+                    <a asp-action="ProjectDetails" asp-route-id="@item.Id">Open project</a>
+                    @* <a asp-action="DeleteProject" asp-route-id="@item.Id">Delete</a> *@
                 </td>
             </tr>
 }
