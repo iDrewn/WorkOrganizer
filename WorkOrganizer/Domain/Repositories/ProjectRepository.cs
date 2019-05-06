@@ -28,18 +28,12 @@ namespace WorkOrganizer.Domain.Repositories
             newProject.Description = description;
             newProject.IdentityUserId = identityUserId;
             
-
             _context.Project.Add(newProject);
-
             await _context.SaveChangesAsync();
             return newProject;
         }
 
-        public async Task<Project> EditProject(
-             int ProjectId,
-             string name,
-             DateTime startDate,
-             string description)
+        public async Task<Project> EditProject(int ProjectId,string name,DateTime startDate,string description)
         {
             var updateProject = await _context.Project.FindAsync(ProjectId);
             updateProject.Name = name;
@@ -52,7 +46,7 @@ namespace WorkOrganizer.Domain.Repositories
             return updateProject;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int? id)
         {
             var project = await _context.Project.FindAsync(id);
 
@@ -87,6 +81,32 @@ namespace WorkOrganizer.Domain.Repositories
 
         
 
+        public Task<Project> FindProjectById(int? id)
+        {
+            var project = _context.Project.FirstOrDefaultAsync(x => x.Id == id);
+
+            return project;
+        }
+
       
+        public async Task<Project> UpdateProjectById(Project project) // ändra fr UpdateProjectById till UpdateProject
+        {
+            var proj = await _context.Project.FindAsync(project.Id);
+
+            proj.Name = project.Name;
+            proj.StartDate = project.StartDate;
+            proj.Description = project.Description;
+
+            _context.Project.Update(proj);
+            await _context.SaveChangesAsync();
+
+            return proj;
+        }
+
+        public Task<Project> ProjectDetalisByIdAsync(int? id)
+        {
+            var proj = _context.Project.FirstOrDefaultAsync(x => x.Id == id);
+            return proj;
+        }
     }
 }

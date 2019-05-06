@@ -23,7 +23,7 @@ namespace WorkOrganizer.Domain.Services
         {
             return await _projectRepository.Create(name, startDate, description, identityUserId);
         }
-        public async Task<bool> DeleteProject(int id)
+        public async Task<bool> DeleteProject(int? id)
         {
             return await _projectRepository.DeleteAsync(id);
         }
@@ -49,6 +49,22 @@ namespace WorkOrganizer.Domain.Services
             return projects;
         }
 
- 
+        public Task<Project> FindProjectByIdAsync(int? id)
+        {
+            var project = _projectRepository.FindProjectById(id);
+            return project;
+        }
+
+        public Task<Project> UpdateProjectByIdAsync(Project project)
+        {
+            var pro = _projectRepository.UpdateProjectById(project);
+            return pro;
+        }
+
+        public Task<Project> ProjectDetalisByIdAsync(int? id)
+        {
+            var proj = _projectRepository.ProjectDetalisByIdAsync(id);
+            return proj;
+        }
     }
 }
