@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WorkOrganizer.Data;
 using WorkOrganizer.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -29,7 +28,6 @@ namespace ProMan.Controllers
         public async Task<IActionResult> Index()
         {
             //return View(await _context.Project.ToListAsync());
-
             return View(await projectService.ListAllProject());
         }
 
@@ -53,14 +51,9 @@ namespace ProMan.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Project
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (project == null)
-            {
-                return NotFound();
-            }
+            var proj = await projectService.ProjectDetalisByIdAsync(id);
 
-            return View(project);
+            return View(proj);
         }
 
         // GET: Dashboard/ProjectCreate
@@ -76,7 +69,6 @@ namespace ProMan.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateProject([Bind("Id,Name,StartDate,Description,IdentityUserId")] Project project) 
         {
-
             if (ModelState.IsValid)
             {
                 //Kod från Tomas. Ska denna vara kvar?
@@ -86,37 +78,27 @@ namespace ProMan.Controllers
                 
                 var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-               
-
                 var newProject = projectService.CreateProject(project.Name, project.StartDate, project.Description, userId);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Projects));
             }
             return View(project);
 
-            //if (ModelState.IsValid)
-            //{
-            //    _context.Add(project);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
+
             //return View(project);
-        }
+        } 
 
         // GET: Dashboard/EditProject/5
         public async Task<IActionResult> EditProject(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var project = await projectService.FindProjectByIdAsync(id);
 
-            var project = await _context.Project.FindAsync(id);
-            if (project == null)
+            if(id == null)
             {
                 return NotFound();
             }
             return View(project);
+            
         }
 
         // POST: Dashboard/EditProject/5
@@ -124,52 +106,27 @@ namespace ProMan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProject(int id, [Bind("Id,Name,StartDate,Description")] Project project)
+        public async Task<IActionResult> EditProject(int id, [Bind("Id,Name,StartDate,Description,IdentityUserId")] Project project)
         {
-            if (id != project.Id)
-            {
-                return NotFound();
-            }
+            var projectUpdate = await projectService.UpdateProjectByIdAsync(project);
 
-            if (ModelState.IsValid)
+            if(projectUpdate != null)
             {
-                try
-                {
-                    _context.Update(project);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProjectExists(project.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
+                return RedirectToAction(nameof(Projects));
+            } 
             return View(project);
         }
 
         // GET: Dashboard/DeleteProject/5
         public async Task<IActionResult> DeleteProject(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var deleted = await projectService.DeleteProject(id);
 
-            var project = await _context.Project
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (project == null)
+            if (deleted)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Projects));
             }
-
-            return View(project);
+            return View(deleted);
         }
 
         // POST: Dashboard/DeleteProject/5
