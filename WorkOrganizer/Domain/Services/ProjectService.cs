@@ -17,9 +17,9 @@ namespace WorkOrganizer.Domain.Services
             _projectRepository = projectRepository;
         }
 
-
         [HttpPost]
         public async Task<Project> CreateProject(string name, DateTime startDate, string description, string identityUserId)
+
         {
             return await _projectRepository.Create(name, startDate, description, identityUserId);
         }
@@ -27,15 +27,17 @@ namespace WorkOrganizer.Domain.Services
         {
             return await _projectRepository.DeleteAsync(id);
         }
+
         public async Task<IEnumerable<Project>> ListAllProject()
         {
             return await _projectRepository.GetAsync();
-
         }
+
         public async Task<Project> GetProjectByTitle(int id, string name)
         {
             return await _projectRepository.GetByTitle(id, name);
         }
+
         public Task<Project> EditProject(int projectId, string name, DateTime startDate, string description)
         {
             var project = _projectRepository.EditProject(projectId, name, startDate, description);

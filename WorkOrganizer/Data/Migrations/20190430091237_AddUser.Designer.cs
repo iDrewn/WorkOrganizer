@@ -10,8 +10,8 @@ using WorkOrganizer.Data;
 namespace WorkOrganizer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190416122427_addFirstName.LastName.SSN")]
-    partial class addFirstNameLastNameSSN
+    [Migration("20190430091237_AddUser")]
+    partial class AddUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,11 +195,17 @@ namespace WorkOrganizer.Data.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<string>("IdentityUserId");
+
                     b.Property<string>("Name");
 
                     b.Property<DateTime>("StartDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdentityUserId");
 
                     b.ToTable("Project");
                 });
@@ -265,6 +271,13 @@ namespace WorkOrganizer.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WorkOrganizer.Domain.Entities.Project", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
                 });
 #pragma warning restore 612, 618
         }
