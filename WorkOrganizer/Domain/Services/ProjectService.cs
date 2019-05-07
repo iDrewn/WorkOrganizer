@@ -69,5 +69,11 @@ namespace WorkOrganizer.Domain.Services
             var proj = _projectRepository.ProjectDetalisByIdAsync(id);
             return proj;
         }
+
+        public Task<IEnumerable<Project>> SearchProjectAsync(string searchString)
+        {
+            var searchProjects = _projectRepository.SearchProject(searchString);
+            return searchProjects;
+        }
     }
 }
