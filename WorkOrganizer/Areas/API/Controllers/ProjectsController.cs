@@ -16,9 +16,7 @@ using WorkOrganizer.Domain.Entities;
 namespace WorkOrganizer.Areas.API.Controllers
 {
     [Route("api/[controller]")]
-
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]    
-                                                                        
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]                                                                      
     [ApiController]
     public class ProjectsController : ControllerBase
     {
@@ -34,14 +32,13 @@ namespace WorkOrganizer.Areas.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()        
         {
-            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;       //Får fel här pga Authorize-attributet överst
+            var userId = HttpContext.User.FindFirst("userid").Value;       
             
             var userIdGuid = new Guid(userId);
 
             var allProjects = await projectService.GetProjectsByUserIdAsync(userIdGuid.ToString());
 
             return Ok(allProjects);
-
         }
         
 
@@ -77,7 +74,11 @@ namespace WorkOrganizer.Areas.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Project>> PostProject(Project project)
         {
-            var newProject = await projectService.CreateProject(project.Name, project.StartDate, project.Description, project.IdentityUserId);
+            var userId = HttpContext.User.FindFirst("userid").Value;
+
+            var IdentityUserId = new Guid(userId);
+
+            var newProject = await projectService.CreateProject(project.Name, project.StartDate, project.EndDate, project.Description, IdentityUserId.ToString());
 
             return Created($"/api/projects/{newProject.Id}", newProject);
         }

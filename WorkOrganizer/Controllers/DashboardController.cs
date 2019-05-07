@@ -20,20 +20,25 @@ namespace ProMan.Controllers
 
         public DashboardController(IProjectService projectService)
         {
-            
+
             this.projectService = projectService;
         }
 
         // GET: Dashboard
         public async Task<IActionResult> Index()
         {
-            //return View(await _context.Project.ToListAsync());
             return View(await projectService.ListAllProject());
         }
 
         // GET: Dashboard/Projects
-        public async Task<IActionResult> Projects()
+        public async Task<IActionResult> Projects(string searchString)
         {
+            var searchProjects = await projectService.SearchProjectAsync(searchString);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return View(searchProjects);
+            }
+
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             var userIdGuid = new Guid(userId);
@@ -78,7 +83,7 @@ namespace ProMan.Controllers
                 
                 var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-                var newProject = projectService.CreateProject(project.Name, project.StartDate, project.Description, userId);
+                var newProject = projectService.CreateProject(project.Name, project.StartDate, project.EndDate, project.Description, userId);
 
                 return RedirectToAction(nameof(Projects));
             }
@@ -134,10 +139,13 @@ namespace ProMan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteProjectConfirmed(int id)
         {
-            var project = await _context.Project.FindAsync(id);
-            _context.Project.Remove(project);
-            await _context.SaveChangesAsync();
+            var deleteProject = await projectService.DeleteProject(id);
             return RedirectToAction(nameof(Projects));
+
+            //var project = await _context.Project.FindAsync(id);
+            //_context.Project.Remove(project);
+            //await _context.SaveChangesAsync();
+            //return RedirectToAction(nameof(Projects));
         }
 
         private bool ProjectExists(int id)

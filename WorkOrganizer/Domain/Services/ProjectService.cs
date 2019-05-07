@@ -17,12 +17,13 @@ namespace WorkOrganizer.Domain.Services
             _projectRepository = projectRepository;
         }
 
-        [HttpPost]
-        public async Task<Project> CreateProject(string name, DateTime startDate, string description, string identityUserId)
+        
+        public async Task<Project> CreateProject(string name, DateTime startDate, DateTime endDate, string description, string identityUserId)
 
         {
-            return await _projectRepository.Create(name, startDate, description, identityUserId);
+            return await _projectRepository.Create(name, startDate, endDate, description, identityUserId);
         }
+
         public async Task<bool> DeleteProject(int? id)
         {
             return await _projectRepository.DeleteAsync(id);
@@ -67,6 +68,12 @@ namespace WorkOrganizer.Domain.Services
         {
             var proj = _projectRepository.ProjectDetalisByIdAsync(id);
             return proj;
+        }
+
+        public Task<IEnumerable<Project>> SearchProjectAsync(string searchString)
+        {
+            var searchProjects = _projectRepository.SearchProject(searchString);
+            return searchProjects;
         }
     }
 }

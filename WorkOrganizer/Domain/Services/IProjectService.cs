@@ -8,7 +8,7 @@ namespace WorkOrganizer.Domain.Services
     public interface IProjectService
     {
 
-        Task<Project> CreateProject(string name, DateTime startDate, string description, string identityUserId);
+        Task<Project> CreateProject(string name, DateTime startDate, DateTime endDate, string description, string identityUserId);
         Task<Project> EditProject(int projectId, string name, DateTime startDate, string description);
         Task<bool> DeleteProject(int? id);
         Task<IEnumerable<Project>> ListAllProject();
@@ -17,5 +17,6 @@ namespace WorkOrganizer.Domain.Services
         Task<Project> FindProjectByIdAsync(int? id);
         Task<Project> UpdateProjectByIdAsync(Project project);
         Task<Project> ProjectDetalisByIdAsync(int? id);
+        Task<IEnumerable<Project>> SearchProjectAsync(string searchString);
     }
 }
