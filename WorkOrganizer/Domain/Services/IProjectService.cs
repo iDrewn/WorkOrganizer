@@ -17,5 +17,6 @@ namespace WorkOrganizer.Domain.Services
         Task<Project> FindProjectByIdAsync(int? id);
         Task<Project> UpdateProjectByIdAsync(Project project);
         Task<Project> ProjectDetalisByIdAsync(int? id);
+        Task<IEnumerable<Project>> SearchProjectAsync(string searchString);
     }
 }
