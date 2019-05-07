@@ -139,10 +139,13 @@ namespace ProMan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteProjectConfirmed(int id)
         {
-            var project = await _context.Project.FindAsync(id);
-            _context.Project.Remove(project);
-            await _context.SaveChangesAsync();
+            var deleteProject = await projectService.DeleteProject(id);
             return RedirectToAction(nameof(Projects));
+
+            //var project = await _context.Project.FindAsync(id);
+            //_context.Project.Remove(project);
+            //await _context.SaveChangesAsync();
+            //return RedirectToAction(nameof(Projects));
         }
 
         private bool ProjectExists(int id)
