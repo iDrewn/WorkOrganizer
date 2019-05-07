@@ -19,15 +19,17 @@ namespace WorkOrganizer.Domain.Repositories
         }
 
         [HttpPost]
-        public async Task<Project> Create(string name, DateTime startDate, string description, string identityUserId)
+        public async Task<Project> Create(string name, DateTime startDate, DateTime endDate, string description, string identityUserId)
         {
-            var newProject = new Project();
+            var newProject = new Project(name, startDate, endDate, description, identityUserId);
 
-            newProject.Name = name;
-            newProject.StartDate = startDate;
-            newProject.Description = description;
-            newProject.IdentityUserId = identityUserId;
-            
+            //newProject.Name = name;
+            //newProject.StartDate = startDate;
+            //newProject.EndDate = endDate;
+            //newProject.Description = description;
+            //newProject.IdentityUserId = identityUserId;
+
+
             _context.Project.Add(newProject);
             await _context.SaveChangesAsync();
             return newProject;
