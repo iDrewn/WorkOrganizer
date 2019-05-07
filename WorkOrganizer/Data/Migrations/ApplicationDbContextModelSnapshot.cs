@@ -201,9 +201,11 @@ namespace WorkOrganizer.Data.Migrations
 
                     b.Property<DateTime>("StartDate");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdentityUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Project");
                 });
@@ -275,7 +277,7 @@ namespace WorkOrganizer.Data.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("IdentityUserId");
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

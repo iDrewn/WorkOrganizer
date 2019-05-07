@@ -61,7 +61,7 @@ namespace ProMan.Controllers
         {
             return View();
         }
-  
+
         // POST: Dashboard/CreateProject
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -71,11 +71,6 @@ namespace ProMan.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Kod från Tomas. Ska denna vara kvar?
-                // _context.Add(project);
-                //await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Projects));
-                
                 var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
                 var newProject = projectService.CreateProject(project.Name, project.StartDate, project.Description, userId);

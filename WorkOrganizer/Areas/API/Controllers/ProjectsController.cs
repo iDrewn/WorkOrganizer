@@ -1,24 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WorkOrganizer.Areas.API.Services;
 using WorkOrganizer.Data;
 using WorkOrganizer.Domain.Entities;
-
+using WorkOrganizer.Domain.Services;
 
 namespace WorkOrganizer.Areas.API.Controllers
 {
     [Route("api/[controller]")]
 
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]    
-                                                                        
+    [Authorize]
     [ApiController]
     public class ProjectsController : ControllerBase
     {
@@ -29,21 +25,21 @@ namespace WorkOrganizer.Areas.API.Controllers
             this.projectService = projectService;
         }
 
-
-        // GET: api/Projects                                 // alla projekt för en inloggad användare 
+     
+        // GET: api/Projects                        // till en specifik användare!!!
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()        
+        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
-            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;       //Får fel här pga Authorize-attributet överst
-            
-            var userIdGuid = new Guid(userId);
+            var listProjects = await projectService.ListAllProject();
 
-            var allProjects = await projectService.GetProjectsByUserIdAsync(userIdGuid.ToString());
-
-            return Ok(allProjects);
-
+            return Ok(listProjects); 
         }
-        
+
+
+
+
+
+
 
         // GET: api/Projects/5                                         
         [HttpGet("{id}")]
@@ -77,7 +73,7 @@ namespace WorkOrganizer.Areas.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Project>> PostProject(Project project)
         {
-            var newProject = await projectService.CreateProject(project.Name, project.StartDate, project.Description, project.IdentityUserId);
+            var newProject = await projectService.CreateProject(project.Name, project.StartDate, project.Description);
 
             return Created($"/api/projects/{newProject.Id}", newProject);
         }

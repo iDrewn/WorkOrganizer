@@ -18,9 +18,7 @@ using Microsoft.Extensions.Logging;
 
 using WorkOrganizer.Domain.Repositories;
 using WorkOrganizer.Domain.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using WorkOrganizer.Areas.API.Services;
+
 
 namespace WorkOrganizer
 {
@@ -36,24 +34,6 @@ namespace WorkOrganizer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-          //  services.AddTransient();            //behövs detta? 
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)  //denna kod ner till rad 53 är ny, dvs vi har skrivit
-             .AddJwtBearer(options =>
-             {
-                 var signingKey = Convert.FromBase64String(Configuration["jwt:SigningSecret"]);    //Stort C för configuration för det är en property
-
-                 options.TokenValidationParameters = new TokenValidationParameters
-                 {
-                     ValidateIssuer = false,
-                     ValidateAudience = false,
-                     ValidateIssuerSigningKey = true,
-                     IssuerSigningKey = new SymmetricSecurityKey(signingKey)
-
-                 };
-             });
-
-
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -76,15 +56,7 @@ namespace WorkOrganizer
             services.AddScoped<IProjectRepository, ProjectRepository>();
 
             //Services
-            services.AddScoped<Domain.Services.IProjectService, Domain.Services.ProjectService>();
-            services.AddScoped<Areas.API.Services.IProjectService, Areas.API.Services.ProjectService>();
-            services.AddScoped<ITokenService, TokenService>();
-
-
-
-
-
-
+            services.AddScoped<IProjectService, ProjectService>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
