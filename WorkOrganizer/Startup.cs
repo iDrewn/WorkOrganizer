@@ -77,15 +77,10 @@ namespace WorkOrganizer
 
             //Services
             services.AddScoped<Domain.Services.IProjectService, Domain.Services.ProjectService>();
+            services.AddScoped<IJobService, JobService>();
+            services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<Areas.API.Services.IProjectService, Areas.API.Services.ProjectService>();
             services.AddScoped<ITokenService, TokenService>();
-
-
-
-
-
-
-
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -115,13 +115,6 @@ namespace WorkOrganizer.Domain.Repositories
         {
             var searchProjects =  _context.Project.Where(s => s.Name.Contains(searchString));
             return searchProjects;
-
-            //var projects = from n in _context.Project select n;
-
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    projects = _context.Project.Where(s => s.Name.Contains(searchString));
-            //}
         }
     }
 }

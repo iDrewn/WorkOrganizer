@@ -8,7 +8,8 @@ namespace WorkOrganizer.Data
     public class ApplicationDbContext : IdentityDbContext
     {
         public DbSet<Project> Project { get; set; }
-        
+        public DbSet<Job> Job { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
