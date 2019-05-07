@@ -78,7 +78,7 @@ namespace ProMan.Controllers
                 
                 var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-                var newProject = projectService.CreateProject(project.Name, project.StartDate, project.Description, userId);
+                var newProject = projectService.CreateProject(project.Name, project.StartDate, project.EndDate, project.Description, userId);
 
                 return RedirectToAction(nameof(Projects));
             }
