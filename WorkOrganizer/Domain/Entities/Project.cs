@@ -6,6 +6,15 @@ namespace WorkOrganizer.Domain.Entities
 {
     public class Project
     {
+        public Project(string name, DateTime startDate, DateTime endDate, string description, string identityUserId)
+        {
+            Name = name;
+            StartDate = startDate;
+            EndDate = endDate;
+            Description = description;
+            IdentityUserId = identityUserId;
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }

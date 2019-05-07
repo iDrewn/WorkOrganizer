@@ -25,7 +25,7 @@ namespace WorkOrganizer.Controllers
 
             var IdentityUserId = new Guid(userId);
 
-            var newProject = await projectService.CreateProject(project.Name, project.StartDate, project.Description, IdentityUserId.ToString()); 
+            var newProject = await projectService.CreateProject(project.Name, project.StartDate, project.EndDate, project.Description, IdentityUserId.ToString()); 
 
             return Created($"{project.Name}, {project.StartDate}, {project.Description}, {project.IdentityUserId}", newProject); 
         }

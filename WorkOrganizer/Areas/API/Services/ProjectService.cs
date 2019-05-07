@@ -17,9 +17,16 @@ namespace WorkOrganizer.Areas.API.Services
             this.context = context;
         }
 
-        public Task<Project> CreateProject(string name, DateTime startDate, string description, string identityUser)
+        public async Task<Project> CreateProject(string name, DateTime startDate, DateTime endDate, string description, string identityUser)
         {
-            throw new NotImplementedException();
+            var newProject = new Project(name, startDate, endDate, description, identityUser);
+
+            context.Project.Add(newProject);
+            await context.SaveChangesAsync();
+
+            return newProject;
+
+            
         }
 
         public Task<bool> DeleteProject(int id)
