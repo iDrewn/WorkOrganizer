@@ -8,11 +8,13 @@ namespace WorkOrganizer.Domain.Services
     public interface IJobService
     {
         Task<IEnumerable<Job>> ListAllJob();
-        //Task<IEnumerable<Job>> ListReportedJobs();
-        Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, string projectId);
-        Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, string projectId);
-        Task<Job> EditJob(int jobId, string name, string description, string material, DateTime date, string hours);
+        Task<IEnumerable<Job>> ListReportedJobs();
+        Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, int projectId, bool isDone);
+        Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, int projectId, bool isDone);
+        Task<Job> EditJobAsync(int jobId, string name, string description, string material, DateTime date, string hours, int projectId, bool isDone);
+        Task<Job> FindJobByIdAsync(int? id);
         Task<bool> DeleteJobAsync(int? id);
+        //Task EditJobAsync(Job job);
         //Task<IEnumerable<Project>> SearchJob(string searchString);
     }
 }

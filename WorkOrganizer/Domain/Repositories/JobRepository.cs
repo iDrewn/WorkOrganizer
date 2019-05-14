@@ -22,31 +22,31 @@ namespace WorkOrganizer.Domain.Repositories
             var job = await _context.Job.ToListAsync();
             return job;
         }
-        //public async Task<IEnumerable<Job>> GetReportedAsync()
-        //{
-        //    var job = await _context.Job.ToListAsync();
-        //    return job;
-        //}
+        public async Task<IEnumerable<Job>> GetReportedAsync()
+        {
+            var reportedJobs = await _context.Job.FromSql("SELECT * FROM dbo.Job WHERE IsDone LIKE '1%'").ToListAsync();
+            return reportedJobs;
+        }
 
         [HttpPost]
-        public async Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, string projectId)
+        public async Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, int projectId, bool isDone)
         {
-            var newJob = new Job(name, description, material, date, hours, projectId);
+            var newJob = new Job(name, description, material, date, hours, isDone);
 
             _context.Job.Add(newJob);
             await _context.SaveChangesAsync();
             return newJob;
         }
-        public async Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, string projectId)
+        public async Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, int projectId, bool isDone)
         {
-            var newJob = new Job(name, description, material, date, hours, projectId);
+            var newJob = new Job(name, description, material, date, hours, isDone);
 
             _context.Job.Add(newJob);
             await _context.SaveChangesAsync();
             return newJob;
         }
 
-        public async Task<Job> EditJob(int JobId, string name, string description, string material, DateTime date, string hours)
+        public async Task<Job> EditJobAsync(int JobId, string name, string description, string material, DateTime date, string hours, int projectId, bool isDone)
         {
             var updateJob = await _context.Job.FindAsync(JobId);
             updateJob.Name = name;
@@ -54,11 +54,20 @@ namespace WorkOrganizer.Domain.Repositories
             updateJob.Material = material;
             updateJob.Date = date;
             updateJob.Hours = hours;
+            updateJob.ProjectId = projectId;
+            updateJob.IsDone = isDone;
 
             _context.Job.Update(updateJob);
             await _context.SaveChangesAsync();
 
             return updateJob;
+        }
+
+        public Task<Job> FindJobById(int? id)
+        {
+            var job = _context.Job.FirstOrDefaultAsync(x => x.Id == id);
+
+            return job;
         }
 
         public async Task<bool> DeleteJobAsync(int? id)

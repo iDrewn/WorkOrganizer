@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
-
+using System.Collections.Generic;
 
 namespace WorkOrganizer.Domain.Entities
 {
@@ -27,6 +27,7 @@ namespace WorkOrganizer.Domain.Entities
         public string Description { get; set; }
         public string IdentityUserId {get; set;} 
         public IdentityUser User { get; set; }
+        public IList<Job> Jobs { get; set; }
 
     }
 }
