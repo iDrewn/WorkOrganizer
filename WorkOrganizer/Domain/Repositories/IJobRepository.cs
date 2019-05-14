@@ -8,10 +8,11 @@ namespace WorkOrganizer.Domain.Repositories
     public interface IJobRepository
     {
         Task<IEnumerable<Job>> GetAsync();
-        //Task<IEnumerable<Job>> GetReportedAsync();
-        Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, string projectId);
-        Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, string projectId);
-        Task<Job> EditJob(int jobId, string name, string description, string material, DateTime date, string hours);
+        Task<IEnumerable<Job>> GetReportedAsync();
+        Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, int projectId, bool isDone);
+        Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, int projectId, bool isDone);
+        Task<Job> EditJobAsync(int jobId, string name, string description, string material, DateTime date, string hours, int projectId, bool isDone);
+        Task<Job> FindJobById(int? id);
         Task<bool> DeleteJobAsync(int? id);
 
         //Task<Project> GetByTitle(int id, string name);
