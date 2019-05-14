@@ -31,10 +31,14 @@ namespace WorkOrganizer.Controllers
         //}
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
-            var allJobs = await jobService.ListAllJob();
-            return View(allJobs);
+            var loadProject = await _context.Project.Include(x => x.Jobs).FirstOrDefaultAsync(x => x.Id == id);
+            if (loadProject == null)
+            {
+                return NotFound("No projects");
+            }
+            return View(loadProject);
         }
 
         [HttpGet]
@@ -45,9 +49,11 @@ namespace WorkOrganizer.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateJob()
+        public IActionResult CreateJob(int projectId)
         {
-            return View();
+            var loadProject =  _context.Project.Include(x => x.Jobs).FirstOrDefaultAsync(x => x.Id == projectId);
+            //hämta project och skicka in
+            return View(loadProject);
         }
 
         [HttpPost]
