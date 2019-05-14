@@ -87,7 +87,7 @@ namespace WorkOrganizer.Domain.Repositories
 
         public async Task<IEnumerable<Job>> SearchJob(string searchString)
         {
-            var searchJobs =  _context.Job.Where(s => s.Name.Contains(searchString));
+            var searchJobs = _context.Job.Where(s => s.Name.Contains(searchString));
             return searchJobs;
         }
     }

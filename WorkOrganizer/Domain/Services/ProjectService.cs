@@ -45,9 +45,9 @@ namespace WorkOrganizer.Domain.Services
             return project;
         }
 
-        public Task<IEnumerable<Project>> GetProjectsByUserId(string userId)
+        public async Task<IEnumerable<Project>> GetProjectsByUserId(string userId)
         {
-            var projects = _projectRepository.GetAllByUserId(userId);
+            var projects = await _projectRepository.GetAllByUserId(userId);
 
             return projects;
         }

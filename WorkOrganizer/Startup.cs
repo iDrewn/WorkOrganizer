@@ -21,6 +21,7 @@ using WorkOrganizer.Domain.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using WorkOrganizer.Areas.API.Services;
+using WorkOrganizer.Domain.Entities;
 
 namespace WorkOrganizer
 {
@@ -65,7 +66,7 @@ namespace WorkOrganizer
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 //.AddRoles<IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -79,7 +80,6 @@ namespace WorkOrganizer
             services.AddScoped<Domain.Services.IProjectService, Domain.Services.ProjectService>();
             services.AddScoped<IJobService, JobService>();
             services.AddScoped<IJobRepository, JobRepository>();
-            services.AddScoped<Areas.API.Services.IProjectService, Areas.API.Services.ProjectService>();
             services.AddScoped<ITokenService, TokenService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

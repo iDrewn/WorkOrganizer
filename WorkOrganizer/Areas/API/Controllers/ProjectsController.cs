@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using WorkOrganizer.Areas.API.Services;
 using WorkOrganizer.Data;
 using WorkOrganizer.Domain.Entities;
-
+using WorkOrganizer.Domain.Services;
 
 namespace WorkOrganizer.Areas.API.Controllers
 {
@@ -36,7 +36,7 @@ namespace WorkOrganizer.Areas.API.Controllers
             
             var userIdGuid = new Guid(userId);
 
-            var allProjects = await projectService.GetProjectsByUserIdAsync(userIdGuid.ToString());
+            var allProjects = await projectService.GetProjectsByUserId(userIdGuid.ToString());
 
             return Ok(allProjects);
         }

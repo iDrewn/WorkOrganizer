@@ -12,13 +12,13 @@ namespace WorkOrganizer.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize]
+        //[Authorize]
         public IActionResult Index()
         {
             return View();
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Privacy()
         {
             return View();
