@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkOrganizer.Data;
 
 namespace WorkOrganizer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190508151953_ConnectFileToProject")]
+    partial class ConnectFileToProject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,17 +218,17 @@ namespace WorkOrganizer.Data.Migrations
 
                     b.Property<string>("Hours");
 
-                    b.Property<bool>("IsDone");
-
                     b.Property<string>("Material");
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("ProjectId");
+                    b.Property<string>("ProjectId");
+
+                    b.Property<int?>("ProjectId1");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("ProjectId1");
 
                     b.ToTable("Job");
                 });
@@ -326,10 +328,9 @@ namespace WorkOrganizer.Data.Migrations
 
             modelBuilder.Entity("WorkOrganizer.Domain.Entities.Job", b =>
                 {
-                    b.HasOne("WorkOrganizer.Domain.Entities.Project")
-                        .WithMany("Jobs")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("WorkOrganizer.Domain.Entities.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId1");
                 });
 
             modelBuilder.Entity("WorkOrganizer.Domain.Entities.Project", b =>

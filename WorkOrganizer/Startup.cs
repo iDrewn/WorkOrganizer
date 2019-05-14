@@ -21,6 +21,9 @@ using WorkOrganizer.Domain.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using WorkOrganizer.Areas.API.Services;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using WorkOrganizer.Controllers;
 using WorkOrganizer.Domain.Entities;
 
 namespace WorkOrganizer
@@ -55,7 +58,6 @@ namespace WorkOrganizer
              });
 
 
-
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -74,13 +76,14 @@ namespace WorkOrganizer
                 .AddDefaultTokenProviders();
 
             //Repositories
-            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();;
 
             //Services
             services.AddScoped<Domain.Services.IProjectService, Domain.Services.ProjectService>();
             services.AddScoped<IJobService, JobService>();
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IFileService, FileService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -149,7 +152,11 @@ namespace WorkOrganizer
             }
 
             app.UseHttpsRedirection();
+            
+
             app.UseStaticFiles();
+
+            
             app.UseCookiePolicy();
 
             app.UseAuthentication();

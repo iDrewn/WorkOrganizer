@@ -15,5 +15,6 @@ namespace WorkOrganizer.Data
         {
         }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; } 
+        public DbSet<WorkOrganizer.Domain.Entities.File> File { get; set; }
     }
 }

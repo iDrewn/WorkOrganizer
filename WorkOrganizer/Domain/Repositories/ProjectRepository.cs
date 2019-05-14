@@ -72,6 +72,7 @@ namespace WorkOrganizer.Domain.Repositories
         public async Task<Project> GetByTitle(int id, string name)
         {
             return await _context.Project.FirstOrDefaultAsync(x => x.Id == id);
+
         }
 
         public async Task<IEnumerable<Project>> GetAllByUserId(string userId)
@@ -107,7 +108,10 @@ namespace WorkOrganizer.Domain.Repositories
 
         public Task<Project> ProjectDetalisByIdAsync(int? id)
         {
-            var proj = _context.Project.FirstOrDefaultAsync(x => x.Id == id);
+            var proj = _context.Project
+                
+                .Include(x => x.Files)
+                .FirstOrDefaultAsync(x => x.Id == id);
             return proj;
         }
 

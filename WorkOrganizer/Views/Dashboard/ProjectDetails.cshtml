@@ -17,18 +17,18 @@
         <hr>
         <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="Index" asp-route-id="@Model.Id">Scheduled jobs</a></span></p>
         <hr>
-<<<<<<< HEAD
         <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="ReportedJobs">Reported jobs</a></span></p>
-=======
         <p class="font-pr"><span><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Add job</a></span></p>
->>>>>>> develop
         <hr>
         <p class="font-pr"><span><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Users</a></span></p>
         <hr>
         <p class="font-pr"><span><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Invite users</a></span></p>
         <hr>
-        <p class="font-pr"><span><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Back to projects</a></span></p>
-        </div>
+        <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Back to projects</a></span></p>
+        <hr>
+        <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="FileUpload" asp-action="Show" asp-route-id="@Model.Id">Add Files</a></span></p>
+        <hr>
+    </div>
     <hr class="d-sm-none">
 </div>
 
@@ -57,6 +57,23 @@
         </dd>
     </dl>
 </div>
+
+<div class="table float-right" style="width:80%">
+    <div>
+        @foreach (var file in Model.Files)
+        {      
+            <table style="width:80%">
+                <tr>
+                    <td>@file.Name</td>
+                    <td><a href="@file.Uri">Watch</a></td>                 
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+
+
 
 @*
     <div>
