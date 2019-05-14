@@ -55,7 +55,7 @@ namespace WorkOrganizer.Controllers
 
             var newFile = await fileService.CreateFileAsync(file.FileName, "/Files/" + file.FileName, projectId);
 
-            return RedirectToAction("Show");
+            return RedirectToAction("Show", new{ id = projectId });
         }
 
         public class UploadFileModel

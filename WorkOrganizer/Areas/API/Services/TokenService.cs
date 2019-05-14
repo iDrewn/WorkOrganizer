@@ -7,16 +7,17 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WorkOrganizer.Domain.Entities;
 
 namespace WorkOrganizer.Areas.API.Services
 {
     public class TokenService : ITokenService
     {
-        private readonly UserManager<IdentityUser> userManager;   //usermanager använder dbcontext
+        private readonly UserManager<ApplicationUser> userManager;   //usermanager använder dbcontext
 
         private readonly IConfiguration configuration;
 
-        public TokenService(UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public TokenService(UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             this.userManager = userManager;
 
