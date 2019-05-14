@@ -28,5 +28,6 @@ namespace WorkOrganizer.Domain.Entities
         public string IdentityUserId {get; set;} 
         public IdentityUser User { get; set; }
         public IList<File>Files { get; set; }
+        public IList<Job> Jobs { get; set; }
     }
 }

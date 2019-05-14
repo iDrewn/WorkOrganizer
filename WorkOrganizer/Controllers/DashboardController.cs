@@ -14,14 +14,15 @@ namespace ProMan.Controllers
     //[Authorize(Roles = SD.SuperAdminEndUser)]
     public class DashboardController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
 
         private readonly IProjectService projectService;
 
-        public DashboardController(IProjectService projectService)
+        public DashboardController(IProjectService projectService, ApplicationDbContext context)
         {
 
             this.projectService = projectService;
+            this.context = context;
         }
 
         // GET: Dashboard
@@ -152,7 +153,7 @@ namespace ProMan.Controllers
 
         private bool ProjectExists(int id)
         {
-            return _context.Project.Any(e => e.Id == id);
+            return context.Project.Any(e => e.Id == id);
         }
     }
 }

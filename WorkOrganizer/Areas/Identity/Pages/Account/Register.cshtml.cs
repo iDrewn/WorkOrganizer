@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using WorkOrganizer.Domain.Entities;
 using WorkOrganizer.Models;
 using WorkOrganizer.Unility;
 

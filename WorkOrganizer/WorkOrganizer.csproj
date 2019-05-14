@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Dashboard\ReportedJobs.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Data\Migrations\20190415132932_UserEntity.cs" />
     <Compile Remove="Data\Migrations\20190415132932_UserEntity.Designer.cs" />
     <Compile Remove="Data\Migrations\20190416122427_addFirstName.LastName.SSN.cs" />
@@ -20,7 +24,6 @@
     <Compile Remove="Data\Migrations\20190429080603_stringToGuid.cs" />
     <Compile Remove="Data\Migrations\20190429080603_stringToGuid.Designer.cs" />
   </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />

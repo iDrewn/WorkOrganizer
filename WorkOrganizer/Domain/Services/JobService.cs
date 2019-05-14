@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using WorkOrganizer.Domain.Entities;
 using WorkOrganizer.Domain.Repositories;
 
@@ -22,24 +20,29 @@ namespace WorkOrganizer.Domain.Services
             return await _jobRepository.GetAsync();
         }
 
-        //public async Task<IEnumerable<Job>> ListReportedJobs()
-        //{
-        //    return await _jobRepository.GetReportedAsync();
-        //}
-
-        public async Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, string projectId)
-
+        public async Task<IEnumerable<Job>> ListReportedJobs()
         {
-            return await _jobRepository.CreateJob(name, description, material, date, hours, projectId);
+            return await _jobRepository.GetReportedAsync();
         }
-        public async Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, string projectId)
+
+        public async Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, int projectId, bool isDone)
 
         {
-            return await _jobRepository.ReportJob(name, description, material, date, hours, projectId);
+            return await _jobRepository.CreateJob(name, description, material, date, hours, projectId, isDone);
         }
-        public Task<Job> EditJob(int jobId, string name, string description, string material, DateTime date, string hours)
+        public async Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, int projectId, bool isDone)
+
         {
-            var job = _jobRepository.EditJob(jobId, name, description, material, date, hours);
+            return await _jobRepository.ReportJob(name, description, material, date, hours, projectId, isDone);
+        }
+        public Task<Job> EditJobAsync(int jobId, string name, string description, string material, DateTime date, string hours, int projectId, bool isDone)
+        {
+            var job = _jobRepository.EditJobAsync(jobId, name, description, material, date, hours, projectId, isDone);
+            return job;
+        }
+        public Task<Job> FindJobByIdAsync(int? id)
+        {
+            var job = _jobRepository.FindJobById(id);
             return job;
         }
 
