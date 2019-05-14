@@ -59,6 +59,7 @@ namespace ProMan.Controllers
             var proj = await projectService.ProjectDetalisByIdAsync(id);
 
             return View(proj);
+
         }
 
         // GET: Dashboard/ProjectCreate
@@ -123,7 +124,8 @@ namespace ProMan.Controllers
         }
 
         // GET: Dashboard/DeleteProject/5
-        public async Task<IActionResult> DeleteProject(int? id)
+        public async Task<IActionResult> DeleteProject(int? 
+            id)
         {
             var deleted = await projectService.DeleteProject(id);
 

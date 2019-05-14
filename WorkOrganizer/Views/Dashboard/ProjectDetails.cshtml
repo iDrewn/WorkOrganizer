@@ -24,7 +24,10 @@
         <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Invite users</a></span></p>
         <hr>
         <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Back to projects</a></span></p>
-        </div>
+        <hr>
+        <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="FileUpload" asp-action="Show" asp-route-id="@Model.Id">Add Files</a></span></p>
+        <hr>
+    </div>
     <hr class="d-sm-none">
 </div>
 
@@ -53,6 +56,23 @@
         </dd>
     </dl>
 </div>
+
+<div class="table float-right" style="width:80%">
+    <div>
+        @foreach (var file in Model.Files)
+        {      
+            <table style="width:80%">
+                <tr>
+                    <td>@file.Name</td>
+                    <td><a href="@file.Uri">Watch</a></td>                 
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+
+
 
 @*
     <div>
