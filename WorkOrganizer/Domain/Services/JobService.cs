@@ -25,19 +25,19 @@ namespace WorkOrganizer.Domain.Services
             return await _jobRepository.GetReportedAsync();
         }
 
-        public async Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, int projectId, bool isDone)
+        public async Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, bool isDone)
 
         {
-            return await _jobRepository.CreateJob(name, description, material, date, hours, projectId, isDone);
+            return await _jobRepository.CreateJob(name, description, material, date, hours, isDone);
         }
-        public async Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, int projectId, bool isDone)
+        public async Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, bool isDone)
 
         {
-            return await _jobRepository.ReportJob(name, description, material, date, hours, projectId, isDone);
+            return await _jobRepository.ReportJob(name, description, material, date, hours, isDone);
         }
-        public Task<Job> EditJobAsync(int jobId, string name, string description, string material, DateTime date, string hours, int projectId, bool isDone)
+        public Task<Job> EditJobAsync(int jobId, string name, string description, string material, DateTime date, string hours, bool isDone)
         {
-            var job = _jobRepository.EditJobAsync(jobId, name, description, material, date, hours, projectId, isDone);
+            var job = _jobRepository.EditJobAsync(jobId, name, description, material, date, hours, isDone);
             return job;
         }
         public Task<Job> FindJobByIdAsync(int? id)

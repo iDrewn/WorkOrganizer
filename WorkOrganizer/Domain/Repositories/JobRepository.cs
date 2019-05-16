@@ -19,7 +19,7 @@ namespace WorkOrganizer.Domain.Repositories
         }
         public async Task<IEnumerable<Job>> GetAsync()
         {
-            var job = await _context.Job.ToListAsync();
+            var job = await _context.Job.FromSql("SELECT * FROM dbo.Job WHERE IsDone LIKE '0%'").ToListAsync();
             return job;
         }
         public async Task<IEnumerable<Job>> GetReportedAsync()
@@ -29,7 +29,7 @@ namespace WorkOrganizer.Domain.Repositories
         }
 
         [HttpPost]
-        public async Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, int projectId, bool isDone)
+        public async Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, bool isDone)
         {
             var newJob = new Job(name, description, material, date, hours, isDone);
 
@@ -37,7 +37,7 @@ namespace WorkOrganizer.Domain.Repositories
             await _context.SaveChangesAsync();
             return newJob;
         }
-        public async Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, int projectId, bool isDone)
+        public async Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, bool isDone)
         {
             var newJob = new Job(name, description, material, date, hours, isDone);
 
@@ -46,7 +46,7 @@ namespace WorkOrganizer.Domain.Repositories
             return newJob;
         }
 
-        public async Task<Job> EditJobAsync(int JobId, string name, string description, string material, DateTime date, string hours, int projectId, bool isDone)
+        public async Task<Job> EditJobAsync(int JobId, string name, string description, string material, DateTime date, string hours, bool isDone)
         {
             var updateJob = await _context.Job.FindAsync(JobId);
             updateJob.Name = name;
@@ -54,7 +54,7 @@ namespace WorkOrganizer.Domain.Repositories
             updateJob.Material = material;
             updateJob.Date = date;
             updateJob.Hours = hours;
-            updateJob.ProjectId = projectId;
+            //updateJob.ProjectId = projectId;
             updateJob.IsDone = isDone;
 
             _context.Job.Update(updateJob);

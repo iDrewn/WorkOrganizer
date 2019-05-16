@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using WorkOrganizer.Data;
 using WorkOrganizer.Domain.Entities;
 using WorkOrganizer.Domain.Services;
+using WorkOrganizer.Models;
 
 namespace WorkOrganizer.Controllers
 {
@@ -51,21 +52,27 @@ namespace WorkOrganizer.Controllers
         [HttpGet]
         public IActionResult CreateJob(int projectId)
         {
-            var loadProject =  _context.Project.Include(x => x.Jobs).FirstOrDefaultAsync(x => x.Id == projectId);
-            //hämta project och skicka in
-            return View(loadProject);
+            var viewModel = new JobModel();
+
+            viewModel.ProjectLoader = _context.Project.FirstOrDefault(e => e.Id == projectId);
+
+            return View(viewModel);
+            //var loadProject =  _context.Project.FirstOrDefaultAsync(x => x.Id == projectId);
+            //var loader = _context;
+            ////hämta project och skicka in
+            //return View(loader);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateJob(int projectId, [Bind("Id,Name,Description,Material,Date,Hours,ProjectId,IsDone")] Job job)
+        public async Task<IActionResult> CreateJob([Bind("Name,Description,Material,Date,Hours,IsDone")] JobModel jobModel)
         {
             if (ModelState.IsValid)
             {
-                var newJob = await jobService.CreateJob(job.Name, job.Description, job.Material, job.Date, job.Hours, projectId, job.IsDone);
-
+                var newJob = await _context.AddAsync(jobModel);//(job.JobLoader.Name , job.JobLoader.Description, job.JobLoader.Material, job.JobLoader.Date, job.JobLoader.Hours, job.JobLoader.IsDone);
+                _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(job);
+            return View(jobModel);
 
         }
 
@@ -84,9 +91,9 @@ namespace WorkOrganizer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditJob(int id, [Bind("Id,Name,Description,Material,Date,Hours,ProjectId,IsDone")] Job job)
+        public async Task<IActionResult> EditJob(int id, [Bind("Id,Name,Description,Material,Date,Hours,IsDone")] Job job)
         {
-            var editJob = await jobService.EditJobAsync(job.Id, job.Name, job.Description, job.Material, job.Date, job.Hours, job.ProjectId, job.IsDone);
+            var editJob = await jobService.EditJobAsync(job.Id, job.Name, job.Description, job.Material, job.Date, job.Hours, job.IsDone);
 
             if (editJob != null)
             {
