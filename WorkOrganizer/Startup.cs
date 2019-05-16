@@ -84,6 +84,7 @@ namespace WorkOrganizer
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IApplicationUserService, ApplicationUserService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
