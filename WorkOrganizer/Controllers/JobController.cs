@@ -35,9 +35,20 @@ namespace WorkOrganizer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ReportedJobs()
+        public IActionResult ReportedJobs(int id)
         {
-            var reportedJobs = await jobService.ListReportedJobs();
+            var reportedJobs = _context.Job
+                .FromSql($"SELECT * FROM dbo.Job WHERE IsDone LIKE '1%'")
+                .Where(b => b.ProjectId == id)
+                .ToList();
+
+            var reportedTime = _context.Job
+                .FromSql("SELECT * FROM dbo.Job WHERE IsDone LIKE '1%'")
+                .Where(x => x.ProjectId == id)
+                .Sum(b => b.Hours)
+                .ToString();
+
+            ViewBag.data = reportedTime;
 
             return View(reportedJobs);
         }
@@ -79,13 +90,13 @@ namespace WorkOrganizer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditJob(int id, [Bind("Id,Name,Description,Material,Date,Hours,IsDone")] Job job)
+        public async Task<IActionResult> EditJob(int id, Job job)
         {
             var editJob = await jobService.EditJobAsync(job.Id, job.Name, job.Description, job.Material, job.Date, job.Hours, job.IsDone);
 
             if (editJob != null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = job.ProjectId });
             }
 
             return View(job);
@@ -101,6 +112,7 @@ namespace WorkOrganizer.Controllers
 
             var job = await _context.Job
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (job == null)
             {
                 return NotFound();
