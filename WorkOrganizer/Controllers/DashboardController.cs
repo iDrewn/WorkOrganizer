@@ -7,6 +7,7 @@ using WorkOrganizer.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using WorkOrganizer.Domain.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProMan.Controllers
 {
@@ -124,31 +125,33 @@ namespace ProMan.Controllers
             return View(project);
         }
 
-        // GET: Dashboard/DeleteProject/5
-        public async Task<IActionResult> DeleteProject(int? 
-            id)
+        [HttpGet]
+        public async Task<IActionResult> DeleteProject(int? id)
         {
-            var deleted = await projectService.DeleteProject(id);
-
-            if (deleted)
+            if (id == null)
             {
-                return RedirectToAction(nameof(Projects));
+                return NotFound();
             }
-            return View(deleted);
+
+            var project = await context.Project
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+
+            return View(project);
         }
 
-        // POST: Dashboard/DeleteProject/5
         [HttpPost, ActionName("DeleteProject")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteProjectConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var deleteProject = await projectService.DeleteProject(id);
-            return RedirectToAction(nameof(Projects));
+            var project = await context.Project.FindAsync(id);
+            context.Project.Remove(project);
+            await context.SaveChangesAsync();
 
-            //var project = await _context.Project.FindAsync(id);
-            //_context.Project.Remove(project);
-            //await _context.SaveChangesAsync();
-            //return RedirectToAction(nameof(Projects));
+            return RedirectToAction(nameof(Index));
         }
 
         private bool ProjectExists(int id)

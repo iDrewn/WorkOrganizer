@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WorkOrganizer.Data;
 using WorkOrganizer.Domain.Entities;
 using WorkOrganizer.Domain.Services;
-using WorkOrganizer.Models;
 
 namespace WorkOrganizer.Controllers
 {
@@ -24,21 +20,17 @@ namespace WorkOrganizer.Controllers
         }
 
         [HttpGet]
-        //public async Task<IEnumerable<Job>> Index(int id)
-        //{
-        //    var projects = _context.Job.Where(x => x.ProjectId == id);
-
-        //    return await projects.ToListAsync();
-        //}
-
-        [HttpGet]
         public async Task<IActionResult> Index(int id)
         {
-            var loadProject = await _context.Project.Include(x => x.Jobs).FirstOrDefaultAsync(x => x.Id == id);
+            var loadProject = await _context.Project
+                .Include(x => x.Jobs)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
             if (loadProject == null)
             {
                 return NotFound("No projects");
             }
+
             return View(loadProject);
         }
 
@@ -46,34 +38,30 @@ namespace WorkOrganizer.Controllers
         public async Task<IActionResult> ReportedJobs()
         {
             var reportedJobs = await jobService.ListReportedJobs();
+
             return View(reportedJobs);
         }
 
         [HttpGet]
         public IActionResult CreateJob(int projectId)
         {
-            var viewModel = new JobModel();
+            var job = new Job { ProjectId = projectId };
 
-            viewModel.ProjectLoader = _context.Project.FirstOrDefault(e => e.Id == projectId);
-
-            return View(viewModel);
-            //var loadProject =  _context.Project.FirstOrDefaultAsync(x => x.Id == projectId);
-            //var loader = _context;
-            ////hämta project och skicka in
-            //return View(loader);
+            return View(job);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateJob([Bind("Name,Description,Material,Date,Hours,IsDone")] JobModel jobModel)
+        public async Task<IActionResult> CreateJob(Job job)
         {
             if (ModelState.IsValid)
             {
-                var newJob = await _context.AddAsync(jobModel);//(job.JobLoader.Name , job.JobLoader.Description, job.JobLoader.Material, job.JobLoader.Date, job.JobLoader.Hours, job.JobLoader.IsDone);
-                _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(jobModel);
+                await _context.Job.AddAsync(job);
+                await _context.SaveChangesAsync();
 
+                return RedirectToAction(nameof(Index), new { id = job.ProjectId });
+            }
+
+            return View(job);
         }
 
         [HttpGet]
@@ -85,8 +73,8 @@ namespace WorkOrganizer.Controllers
             {
                 return NotFound();
             }
-            return View(job);
 
+            return View(job);
         }
 
         [HttpPost]
@@ -99,6 +87,7 @@ namespace WorkOrganizer.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
+
             return View(job);
         }
 
@@ -127,35 +116,9 @@ namespace WorkOrganizer.Controllers
             var job = await _context.Job.FindAsync(id);
             _context.Job.Remove(job);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
-
-        //[HttpGet]
-        ////[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteJob(int? id)
-        //{
-        //    var job = await _context.Job.FindAsync(id);
-        //    var deleted = _context.Job.Remove(job);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(DeleteJobConfirmed));
-
-        //    //var deleted = await jobService.DeleteJobAsync(id);
-
-        //    //if (deleted)
-        //    //{
-        //    //    return NoContent();
-        //    //}
-
-        //    //return NotFound();
-        //}
-
-        //[HttpPost, ActionName("DeleteJob")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteJobConfirmed(int id)
-        //{
-        //    var deleteJob = await jobService.DeleteJobAsync(id);
-        //    return RedirectToAction(nameof(Index));
-        //}
 
         private bool ProjectExists(int id)
         {

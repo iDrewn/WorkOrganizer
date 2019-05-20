@@ -1,4 +1,4 @@
-﻿@model WorkOrganizer.Models.JobModel
+﻿@model WorkOrganizer.Domain.Entities.Job
 @{
     ViewData["Title"] = "Create";
 }
@@ -10,40 +10,37 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-controller="Job" asp-action="CreateJob">
-            @*<input type="hidden" name="projectId" value="@Model.ProjectLoader.Id" />*@
+            <input type="hidden" name="projectId" value="@Model.ProjectId" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="JobLoader.Name" class="control-label"></label>
-                <input asp-for="JobLoader.Name" class="form-control" />
-                <span asp-validation-for="JobLoader.Name" class="text-danger"></span>
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="JobLoader.Description" class="control-label"></label>
-                <input asp-for="JobLoader.Description" class="form-control" />
-                <span asp-validation-for="JobLoader.Description" class="text-danger"></span>
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="JobLoader.Material" class="control-label"></label>
-                <input asp-for="JobLoader.Material" class="form-control" />
-                <span asp-validation-for="JobLoader.Material" class="text-danger"></span>
+                <label asp-for="Material" class="control-label"></label>
+                <input asp-for="Material" class="form-control" />
+                <span asp-validation-for="Material" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="JobLoader.Date" class="control-label"></label>
-                <input asp-for="JobLoader.Date" class="form-control" />
-                <span asp-validation-for="JobLoader.Date" class="text-danger"></span>
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="JobLoader.Hours" class="control-label"></label>
-                <input asp-for="JobLoader.Hours" class="form-control" />
-                <span asp-validation-for="JobLoader.Hours" class="text-danger"></span>
+                <label asp-for="Hours" class="control-label"></label>
+                <input asp-for="Hours" class="form-control" />
+                <span asp-validation-for="Hours" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <input asp-for="JobLoader.ProjectId" type="hidden" class="form-control" />
-            </div>*@
             <div class="form-group">
-                <label asp-for="JobLoader.IsDone" class="control-label">Done</label>
-                <input asp-for="JobLoader.IsDone" type="checkbox" class="form-control" />
-                <span asp-validation-for="JobLoader.IsDone" class="text-danger"></span>
+                <label asp-for="IsDone" class="control-label">Done</label>
+                <input asp-for="IsDone" type="checkbox" class="form-control" />
+                <span asp-validation-for="IsDone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
