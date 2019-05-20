@@ -33,6 +33,11 @@ namespace WorkOrganizer.Controllers
             var searchProjects = await projectService.SearchProjectAsync(searchString);
             if (!String.IsNullOrEmpty(searchString))
             {
+                return View(searchProjects);
+            }
+
+            if (String.IsNullOrEmpty(searchString))
+            {
                 return RedirectToAction(nameof(NoResult));
             }
 
@@ -50,6 +55,11 @@ namespace WorkOrganizer.Controllers
             var searchUsers = await applicationUserService.SearchUser(searchString);
             if (!String.IsNullOrEmpty(searchString))
             {
+                return View(searchUsers);
+            }
+
+            if (String.IsNullOrEmpty(searchString))
+            {
                 return RedirectToAction(nameof(NoResult));
             }
 
@@ -62,6 +72,11 @@ namespace WorkOrganizer.Controllers
         {
             var searchJobs = await jobService.SearchJob(searchString);
             if (!String.IsNullOrEmpty(searchString))
+            {
+                return View(searchJobs);
+            }
+
+            if (String.IsNullOrEmpty(searchString))
             {
                 return RedirectToAction(nameof(NoResult));
             }
