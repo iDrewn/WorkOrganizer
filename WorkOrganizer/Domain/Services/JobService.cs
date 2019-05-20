@@ -51,10 +51,10 @@ namespace WorkOrganizer.Domain.Services
             return await _jobRepository.DeleteJobAsync(id);
         }
 
-        //public Task<IEnumerable<Job>> SearchJobAsync(string searchString)
-        //{
-        //    var searchJobs = _jobRepository.SearchJob(searchString);
-        //    return searchJobs;
-        //}
+        public Task<IEnumerable<Job>> SearchJob(string searchString)
+        {
+            var searchJobs = _jobRepository.SearchJob(searchString);
+            return searchJobs;
+        }
     }
 }

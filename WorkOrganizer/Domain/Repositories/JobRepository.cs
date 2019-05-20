@@ -55,7 +55,6 @@ namespace WorkOrganizer.Domain.Repositories
             updateJob.Material = material;
             updateJob.Date = date;
             updateJob.Hours = hours;
-            //updateJob.ProjectId = projectId;
             updateJob.IsDone = isDone;
 
             _context.Job.Update(updateJob);
