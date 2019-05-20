@@ -1,0 +1,23 @@
+﻿@model IEnumerable<WorkOrganizer.Domain.Entities.ApplicationUser>
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h1>List of Users:</h1>
+
+
+<div class="table float-left" style="width:80%">
+    <div>
+        @foreach (var item in Model)
+        {
+            <table style="width:80%">
+                <tr>
+                    <td>@item.Firstname</td>
+                    <td>@item.Lastname</td>
+                    <td>@item.Email</td>
+
+                </tr>
+            </table>
+        }
+    </div>
+</div>
