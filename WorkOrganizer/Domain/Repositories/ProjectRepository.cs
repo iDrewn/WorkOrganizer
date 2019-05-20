@@ -18,7 +18,7 @@ namespace WorkOrganizer.Domain.Repositories
             _context = context;
         }
 
-        [HttpPost]
+        
         public async Task<Project> Create(string name, DateTime startDate, DateTime endDate, string description, string identityUserId)
         {
             var newProject = new Project(name, startDate, endDate, description, identityUserId);
