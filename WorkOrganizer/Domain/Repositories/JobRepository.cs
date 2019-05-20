@@ -25,11 +25,12 @@ namespace WorkOrganizer.Domain.Repositories
         public async Task<IEnumerable<Job>> GetReportedAsync()
         {
             var reportedJobs = await _context.Job.FromSql("SELECT * FROM dbo.Job WHERE IsDone LIKE '1%'").ToListAsync();
+            
             return reportedJobs;
         }
 
         [HttpPost]
-        public async Task<Job> CreateJob(string name, string description, string material, DateTime date, string hours, bool isDone)
+        public async Task<Job> CreateJob(string name, string description, string material, DateTime date, int hours, bool isDone)
         {
             var newJob = new Job(name, description, material, date, hours, isDone);
 
@@ -37,7 +38,7 @@ namespace WorkOrganizer.Domain.Repositories
             await _context.SaveChangesAsync();
             return newJob;
         }
-        public async Task<Job> ReportJob(string name, string description, string material, DateTime date, string hours, bool isDone)
+        public async Task<Job> ReportJob(string name, string description, string material, DateTime date, int hours, bool isDone)
         {
             var newJob = new Job(name, description, material, date, hours, isDone);
 
@@ -46,7 +47,7 @@ namespace WorkOrganizer.Domain.Repositories
             return newJob;
         }
 
-        public async Task<Job> EditJobAsync(int JobId, string name, string description, string material, DateTime date, string hours, bool isDone)
+        public async Task<Job> EditJobAsync(int JobId, string name, string description, string material, DateTime date, int hours, bool isDone)
         {
             var updateJob = await _context.Job.FindAsync(JobId);
             updateJob.Name = name;

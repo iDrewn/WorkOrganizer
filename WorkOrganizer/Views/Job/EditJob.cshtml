@@ -12,7 +12,7 @@
     <div class="col-md-4">
         <form asp-action="EditJob">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ProjectId" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -39,9 +39,9 @@
                 <span asp-validation-for="Hours" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectId" class="control-label"></label>
-                <input asp-for="ProjectId" class="form-control" />
-                <span asp-validation-for="ProjectId" class="text-danger"></span>
+                <label asp-for="IsDone" class="control-label"></label>
+                <input asp-for="IsDone" type="checkbox" class="form-control" />
+                <span asp-validation-for="IsDone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -51,6 +51,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index"asp-route-id="@Model.ProjectId">Back to List</a>
 </div>
 
