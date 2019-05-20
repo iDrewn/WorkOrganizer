@@ -14,12 +14,12 @@ namespace WorkOrganizer.Domain.Repositories
         Task<Job> EditJobAsync(int jobId, string name, string description, string material, DateTime date, int hours, bool isDone);
         Task<Job> FindJobById(int? id);
         Task<bool> DeleteJobAsync(int? id);
+        Task<IEnumerable<Job>> SearchJob(string searchString);
 
         //Task<Project> GetByTitle(int id, string name);
         //Task<IEnumerable<Project>> GetAllByUserId(string userId);
         //Task<Project> FindJobById(int? id);
         //Task<Project> UpdateJobById(Project project);
         //Task<Project> JobDetalisByIdAsync(int? id);
-        //Task<IEnumerable<Project>> SearchJob(string searchString);
     }
 }

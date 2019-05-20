@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using WorkOrganizer.Areas.API.Models;
 using WorkOrganizer.Data;
 using WorkOrganizer.Domain.Entities;
-using WorkOrganizer.Unility;
 
 namespace WorkOrganizer.Domain.Services
 {
@@ -82,6 +80,11 @@ namespace WorkOrganizer.Domain.Services
             await context.SaveChangesAsync();
 
             return applicationUser;
+        }
+        public async Task<IEnumerable<ApplicationUser>> SearchUser(string searchString)
+        {
+            var searchJobs = context.ApplicationUsers.Where(s => s.UserName.Contains(searchString));
+            return searchJobs;
         }
     }
 }
