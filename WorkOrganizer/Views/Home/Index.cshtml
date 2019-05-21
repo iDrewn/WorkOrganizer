@@ -2,8 +2,90 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    
-    
+<header id="back-image" class="bg-primary py-5 mb-5">
+    <div class="h-100">
+        <div id="jumbo" class="jumbotron">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-12">
+                    <h1 class="display-4 text-dark text-center mt-5 mb-2">WorkOrganizer</h1>
+                    <p class="lead mb-5 text-dark text-center">Start organize your work with WorkOrganizer!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-8 mb-5">
+            <h2>What We Do</h2>
+            <hr>
+            <p>We’re big believers in the power of keeping it simple. Every bet we’ve ever placed on making something easier for our customers has always paid off. In the decades to come, we’ll continue to make big bets on simplicity, clarity, ease-of-use, and honesty. This goes for our products, our publications, and our company.</p>
+            <p>Our goals have always been the same: Have fun, do exceptional work, build the best product in the business, experiment, pay attention to the details, treat people right, tell the truth, have a positive impact on the world around us, give back, and keep learning.</p>
+            <a class="btn btn-info btn-lg" asp-area="" asp-controller="Dashboard" asp-action="Index">Get to work! &raquo;</a>
+        </div>
+        <div class="col-md-4 mb-5">
+            <h2>Contact Us</h2>
+            <hr>
+            <address>
+                <strong>WorkOrganizer</strong>
+                <br>Södergatan 78
+                <br>252 37 Helsingborg
+                <br>
+            </address>
+            <address>
+                <abbr title="Phone">P:</abbr>
+                (123) 456-7890
+                <br>
+                <abbr title="Email">E:</abbr>
+                <a href="mailto:#">info@workorganizer.biz</a>
+            </address>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1557426272-fc759fdf7a8d" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">Create projects!</h4>
+                    <p class="card-text">Be a master of projects! Create a project and start organizing your work!</p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1554902843-260acd0993f8" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">Invite users!</h4>
+                    <p class="card-text">Gather all your colleagues and friends and invite them to your projects! Together we are strong!</p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1551434678-e076c223a692" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">Schedule jobs!</h4>
+                    <p class="card-text">Organize and delegate different jobs easy within the project. Keep track of your process!</p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<style>
+#back-image { 
+    width: 100%; 
+    background-image: url("https://images.unsplash.com/photo-1553268100-4c2734aacf7c");
+    background-size: cover; 
+    background-position: center; }
+#jumbo {
+    background-color: rgba(245, 245, 245, 0.8);
+    }
+</style>
