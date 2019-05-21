@@ -14,6 +14,18 @@ using WorkOrganizer.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using Microsoft.Extensions.Logging;
+
+using WorkOrganizer.Domain.Repositories;
+using WorkOrganizer.Domain.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using WorkOrganizer.Areas.API.Services;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using WorkOrganizer.Controllers;
+using WorkOrganizer.Domain.Entities;
+
 namespace WorkOrganizer
 {
     public class Startup
@@ -28,6 +40,23 @@ namespace WorkOrganizer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+          //  services.AddTransient();            //behövs detta? 
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)  //denna kod ner till rad 53 är ny, dvs vi har skrivit
+             .AddJwtBearer(options =>
+             {
+                 var signingKey = Convert.FromBase64String(Configuration["jwt:SigningSecret"]);    //Stort C för configuration för det är en property
+
+                 options.TokenValidationParameters = new TokenValidationParameters
+                 {
+                     ValidateIssuer = false,
+                     ValidateAudience = false,
+                     ValidateIssuerSigningKey = true,
+                     IssuerSigningKey = new SymmetricSecurityKey(signingKey)
+
+                 };
+             });
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -39,16 +68,78 @@ namespace WorkOrganizer
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                //.AddRoles<IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
+
+            //Repositories
+            services.AddScoped<IProjectRepository, ProjectRepository>();;
+
+            //Services
+            services.AddScoped<Domain.Services.IProjectService, Domain.Services.ProjectService>();
+            services.AddScoped<IJobService, JobService>();
+            services.AddScoped<IJobRepository, JobRepository>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IApplicationUserService, ApplicationUserService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
+
+
+
+        // create user rolles
+        //private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        //{
+        //    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        //    var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+        //    string[] roleNames = { "Admin", "User" };
+        //    IdentityResult roleResult;
+
+        //    foreach (var roleName in roleNames)
+        //    {
+        //        var roleExist = await roleManager.RoleExistsAsync(roleName);
+
+        //        if (!roleExist)
+        //        {
+        //            roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+        //        }
+        //    }
+
+        //    var poweruser = new IdentityUser
+        //    {
+        //        UserName = Configuration.GetSection("AppSettings")["UserEmail"],
+        //        Email = Configuration.GetSection("AppSettings")["UserEmail"]
+        //    };
+
+        //    string userPassword = Configuration.GetSection("AppSettings")["UserPassword"];
+        //    var user = await userManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["UserPassword"]);
+
+        //    if (user == null)
+        //    {
+        //        var createPowerUser = await userManager.CreateAsync(poweruser, userPassword);
+        //        if (createPowerUser.Succeeded)
+        //        {
+        //            await userManager.AddToRoleAsync(poweruser, "Admin");
+        //        }
+        //    }
+        //}
+
+
+
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
+
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -62,8 +153,12 @@ namespace WorkOrganizer
             }
 
             app.UseHttpsRedirection();
+            
+
             app.UseStaticFiles();
-            //app.UseCookiePolicy();
+
+            
+            app.UseCookiePolicy();
 
             app.UseAuthentication();
 
@@ -73,6 +168,7 @@ namespace WorkOrganizer
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            //CreateUserRoles(serviceProvider).Wait();
         }
     }
 }

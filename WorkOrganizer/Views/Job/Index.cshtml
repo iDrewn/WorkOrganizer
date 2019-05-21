@@ -1,0 +1,87 @@
+﻿@model WorkOrganizer.Domain.Entities.Project
+@{
+    Layout = "_Layout";
+}
+
+@{
+    ViewData["Title"] = "Scheduled jobs";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Scheduled jobs</h1>
+</div>
+
+
+<div class=" float-sm-left">
+    <div class="ui segment" style="width: 100% !important;">
+        <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Projects</a></p>
+        <hr>
+    </div>
+    <hr class="d-sm-none">
+</div>
+
+<p class="float-sm-right">
+    <a asp-action="CreateJob" asp-route-projectId="@Model.Id">Add Scheduled Job</a>
+</p>
+
+<table class="table float-right" style="width:80%">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Material
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Hours
+            </th>
+            <th>
+                Project
+            </th>
+            <th>
+                Done
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Jobs.Where(x => !x.IsDone))
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Material)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hours)
+            </td>
+            <td>
+                @Html.DisplayFor(Model => Model.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDone)
+            </td>
+            <td>
+                <a asp-action="EditJob" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="DeleteJob" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
