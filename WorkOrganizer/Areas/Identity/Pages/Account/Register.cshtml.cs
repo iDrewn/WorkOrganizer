@@ -77,6 +77,7 @@ namespace WorkOrganizer.Areas.Identity.Pages.Account
             [Display(Name = "Super Admin")]
             public bool IsSuperAdmin { get; set; }
 
+            
 
         }
 
