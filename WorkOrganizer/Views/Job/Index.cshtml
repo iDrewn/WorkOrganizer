@@ -12,13 +12,7 @@
 </div>
 
 
-<div class=" float-sm-left">
-    <div class="ui segment" style="width: 100% !important;">
-        <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Projects</a></p>
-        <hr>
-    </div>
-    <hr class="d-sm-none">
-</div>
+<partial name="_NavBarProject" />
 
 <p class="float-sm-right">
     <a asp-action="CreateJob" asp-route-projectId="@Model.Id">Add Scheduled Job</a>
@@ -44,9 +38,6 @@
             </th>
             <th>
                 Project
-            </th>
-            <th>
-                Done
             </th>
             <th></th>
         </tr>
@@ -74,11 +65,7 @@
                 @Html.DisplayFor(Model => Model.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsDone)
-            </td>
-            <td>
                 <a asp-action="EditJob" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="DeleteJob" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
