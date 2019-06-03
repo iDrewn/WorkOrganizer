@@ -9,15 +9,35 @@
     <hr />
 </div>
 
-<div class="col-sm-4 float-sm-left">
-    <div class="ui segment" style="width: 100% !important;">
-        @*<p class="font-pr-bold">Menu</p>*@
-                
-                <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Projects</a></p>
-                <hr />
-                <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Show">Users</a></p>
-                <hr>
-                <p class="font-pr"><a class="nav-link text-dark" asp-area="" asp-controller="AdvancedSearch" asp-action="Index">Search by details</a></p>
+<div class="row">
+    <div class="col-md-4 mb-5">
+        <div class="card h-100">
+            <a asp-area="" asp-controller="Dashboard" asp-action="Projects"><img class="card-img-top" src="https://images.unsplash.com/photo-1557426272-fc759fdf7a8d" alt=""></a>
+            <div class="card-body">
+                <h4 class="card-title">Projects</h4>
+                <p class="card-text">Be a master of projects! Create a project and start organizing your work!</p>
             </div>
-            <hr class="d-sm-none">
+                
         </div>
+    </div>
+    <div class="col-md-4 mb-5">
+        <div class="card h-100">
+            <a asp-area="" asp-controller="User" asp-action="Show"><img class="card-img-top" src="https://images.unsplash.com/photo-1554902843-260acd0993f8" alt=""></a>
+            <div class="card-body">
+                <h4 class="card-title">Users</h4>
+                <p class="card-text">Gather all your colleagues and friends and invite them to your projects! Together we are strong!</p>
+            </div>
+                
+        </div>
+    </div>
+    <div class="col-md-4 mb-5">
+        <div class="card h-100">
+            <a asp-area="" asp-controller="AdvancedSearch" asp-action="Index"><img class="card-img-top" src="https://images.unsplash.com/photo-1551434678-e076c223a692" alt=""></a>
+            <div class="card-body">
+                <h4 class="card-title">Advanced search</h4>
+                <p class="card-text">Organize and delegate different jobs easy within the project. Keep track of your process!</p>
+            </div>
+                
+        </div>
+    </div>
+</div>
