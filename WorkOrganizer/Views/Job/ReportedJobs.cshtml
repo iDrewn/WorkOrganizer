@@ -37,9 +37,7 @@
         <th>
             Hours
         </th>
-        <th>
-            Project Id
-        </th>
+        
         <th></th>
     </tr>
     </thead>
@@ -62,9 +60,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Hours)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProjectId)
-            </td>
+            
         </tr>
     }
     </tbody>
@@ -74,15 +70,9 @@
     <thead>
         <tr>
             <th>
-                Reported time
+                Reported hours: @ViewBag.ReportedTime
             </th>
         </tr>
     </thead>
-    <tbody>
-        <tr>
-            <td>
-                @ViewBag.ReportedTime
-            </td>
-        </tr>
-    </tbody>
+    
 </table>
