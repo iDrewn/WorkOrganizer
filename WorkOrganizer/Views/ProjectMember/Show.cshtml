@@ -1,0 +1,99 @@
+﻿@model WorkOrganizer.Controllers.ProjectMemberShowViewModel
+
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h1>Add member to this project</h1>
+
+<div class="table float-left js-admin-users" style="width:95%">
+   
+
+    <input type="hidden" name="projectId" value="@Model.ProjectId" />
+    <table style="width:80%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Member</th>
+                <th>Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr data-user-id="@user.Id">
+                    <td>@user.Name</td>
+                    <td>
+                        <input type="checkbox" name="member" value="@user.IsMember" checked="@user.IsMember">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="admin" value="@user.IsAdmin" checked="@user.IsAdmin">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>       
+
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        var $container = $(".js-admin-users");
+
+        var projectId = $container.find('input[name="projectId"]').val();
+
+        var $tr = $container.find('tbody > tr');
+
+        $tr.find('input[name="member"]').on('click', function (e) {
+
+            var $input = $(this);
+            var userId = $input.parent().parent().data('user-id');
+            var isMember = $input.prop('checked');
+
+            if (isMember) {
+
+                 $.post("/projectmember/addmember", { projectId: projectId, userId: userId })
+                  .done(function( data ) {
+                      console.log('success');
+                  });
+
+            } else {
+
+                $.post("/projectmember/removemember", { projectId: projectId, userId: userId })
+                  .done(function( data ) {
+                      console.log('success');
+                  });
+            }
+
+
+        });
+
+        $tr.find('input[name="admin"]').on('click', function (e) {
+
+            var $input = $(this);
+            var userId = $input.parent().parent().data('user-id');
+            var isAdmin = $input.prop('checked');
+
+             if (isAdmin) {
+
+                 $.post("/projectmember/addadmin", { projectId: projectId, userId: userId })
+                  .done(function( data ) {
+                      console.log('success');
+                  });
+
+            } else {
+
+                $.post("/projectmember/removeadmin", { projectId: projectId, userId: userId })
+                  .done(function( data ) {
+                      console.log('success');
+                  });
+            }
+
+        });
+
+    </script>
+
+}
