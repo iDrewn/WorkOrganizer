@@ -71,10 +71,10 @@ namespace WorkOrganizer.Areas.API.Controllers
         {
             var newProject = await projectService.EditProject(id, project.Name, project.StartDate, project.Description);
 
-            if (id != project.Id)
-            {
-                return BadRequest();
-            }
+            //if (id != project.Id)
+            //{
+            //    return BadRequest();
+            //}
 
             return NoContent();
         }
