@@ -42,7 +42,7 @@
                         <td>@file.Name</td>
                         <td class="float-right">
                             <a href="@file.Uri" target="_blank">Watch</a> |
-                            <a href="@file.Uri" target="_blank">Delete</a>
+                            <a asp-controller="FileUpload" asp-action="DeleteFile" asp-route-projectId="@Model.Id" asp-route-fileId="@file.Id">Delete</a>
                         </td>
                     </tr>
                 </table>
