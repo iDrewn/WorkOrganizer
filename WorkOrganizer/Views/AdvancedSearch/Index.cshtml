@@ -11,20 +11,21 @@
 <br />
 <br />
 
-<div>
-    <form asp-controller="AdvancedSearch" asp-action="SearchProjects" method="get" class="form-inline my-2 my-lg-0 mr-sm-3">
+<div class="d-flex p-2">
+    <form asp-controller="AdvancedSearch" asp-action="SearchProjects" method="get" class="form-inline">
         <input class="form-control mr-sm-2" type="search" name="SearchString" placeholder="Search project.." aria-label="Search">
         <button class="btn btn-outline-dark my-2 my-sm-0 mr-sm-5" type="submit">Search</button>
     </form>
     <hr />
-    <form asp-controller="AdvancedSearch" asp-action="SearchUsers" method="get" class="form-inline my-2 my-lg-0 mr-sm-3">
-        <input class="form-control mr-sm-2" type="search" name="SearchString" placeholder="Search user.." aria-label="Search">
+    <form asp-controller="AdvancedSearch" asp-action="SearchUsers" method="get" class="form-inline">
+        <input class="form-control mr-sm-2" type="search" name="SearchString" placeholder="Search e-mail.." aria-label="Search">
         <button class="btn btn-outline-dark my-2 my-sm-0 mr-sm-5" type="submit">Search</button>
     </form>
     <hr />
-    <form asp-controller="AdvancedSearch" asp-action="SearchJobs" method="get" class="form-inline my-2 my-lg-0 mr-sm-3">
+    <form asp-controller="AdvancedSearch" asp-action="SearchJobs" method="get" class="form-inline">
         <input class="form-control mr-sm-2" type="search" name="SearchString" placeholder="Search job.." aria-label="Search">
         <button class="btn btn-outline-dark my-2 my-sm-0 mr-sm-5" type="submit">Search</button>
     </form>
 </div>
+
 
