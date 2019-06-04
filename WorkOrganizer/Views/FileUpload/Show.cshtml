@@ -3,37 +3,51 @@
     ViewData["Title"] = "FileUpload";
 }
 
-<h2>Uppload File:</h2>
-
-<form method="post" enctype="multipart/form-data" asp-controller="FileUpload" asp-action="UploadFile">
-    <input type="hidden" name="projectId" value="@Model.Id" />
-    <div class="form-group">
-        <div class="col-md-10">
-            
-            <input type="file" name="file" multiple>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-10">
-            <input type="submit" value="Upload">
-        </div>
-    </div>
-</form>
-<br />
-<h2>
-    List of files:
-</h2>
-<div class="table float-left" style="width:80%">
-    <div>
-        @foreach (var file in Model.Files)
-        {
-            <table style="width:80%">
-                <tr>
-                    <td>@file.Name</td>   
-                    <td><a href="@file.Uri" target="_blank">Watch</a></td>
-                </tr>
-            </table>
-        }
-    </div>
+<div class="text-center">
+    <h1 class="display-4">Upload file:</h1>
 </div>
 
+<partial name="_NavBarProject" />
+
+<br/>
+
+<div class="table float-right" style="width: 80%">
+    <hr />
+    <form method="post" enctype="multipart/form-data" asp-controller="FileUpload" asp-action="UploadFile">
+        <input type="hidden" name="projectId" value="@Model.Id"/>
+        <div class="form-group">
+            <div class="col-md-10">
+
+                <input type="file" name="file">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Upload">
+            </div>
+        </div>
+    </form>
+    <hr />
+    <br/>
+        <h4 style="width: 75%" class="text-center">
+            List of files:
+        </h4>
+   <div>
+        <div>
+            @foreach (var file in Model.Files)
+            {
+                <table class="table">
+                    <tr>
+                        <td>@file.Name</td>
+                        <td class="float-right">
+                            <a href="@file.Uri" target="_blank">Watch</a> |
+                            <a href="@file.Uri" target="_blank">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+
+</div>

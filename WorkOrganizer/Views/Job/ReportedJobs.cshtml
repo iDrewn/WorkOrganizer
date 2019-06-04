@@ -1,48 +1,49 @@
-﻿
-@model IEnumerable<WorkOrganizer.Domain.Entities.Job>
+﻿@*@model IEnumerable<WorkOrganizer.Domain.Entities.Job>*@
+@using System.Collections
+@using WorkOrganizer.Domain.Entities
+@model WorkOrganizer.Domain.Entities.Project
+
 @{
     Layout = "_Layout";
 }
 
 @{
-    ViewData["Title"] = "Reported";
+    ViewData["Title"] = "Completed jobs";
 }
+<div class="text-center">
+    <h1 class="display-4">Completed jobs</h1>
+</div>
 
-<h1>Reported</h1>
+<partial name="_NavBarProject" />
 
-@*<p>
-    <a asp-action="CreateJob">Create New</a>
-</p>*@
-<table class="table">
+<br/>
+<br/>
+
+<table class="table float-right" style="width:80%">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Material)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProjectId)
-            </th>
-            <th>
-                Done
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Material
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Hours
+        </th>
+        
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
+    @foreach (var item in (IEnumerable<Job>) ViewBag.ReportedJobs)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -59,35 +60,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Hours)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProjectId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDone)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-            </td>
+            
         </tr>
-        }
+    }
     </tbody>
 </table>
 
-<hr />
-
-<table class="table">
+<table class="table float-right" style="width:80%">
     <thead>
         <tr>
             <th>
-                Reported time
+                Reported hours: @ViewBag.ReportedTime
             </th>
         </tr>
     </thead>
-    <tbody>
-            <tr>
-                <td>
-                    @ViewBag.data
-                </td>
-            </tr>
-    </tbody>
+    
 </table>

@@ -1,0 +1,20 @@
+﻿@model WorkOrganizer.Domain.Entities.Project
+
+<div class=" float-sm-left">
+    <div class="ui segment" style="width: 100% !important;">
+        <button type="button" class="nav-link btn btn-link"><a class="text-dark h5" asp-area="" asp-controller="Dashboard" asp-action="ProjectDetails" asp-route-id="@Model.Id">@Html.DisplayFor(model => model.Name)</a></button>
+        <hr />
+        <button type="button" class="nav-link btn btn-link"><a class="text-dark" asp-area="" asp-controller="FileUpload" asp-action="Show" asp-route-id="@Model.Id">Add Files</a></button>
+        @*
+        <button type="button" class="nav-link btn btn-link"><a class="text-dark" asp-area="" asp-controller="Job" asp-action="CreateJob" asp-route-projectId="@Model.Id">Add job</a></button>
+        *@
+        <button type="button" class="nav-link btn btn-link"><a class="text-dark" asp-area="" asp-controller="Job" asp-action="Index" asp-route-id="@Model.Id">Scheduled jobs</a></button>
+        <button type="button" class="nav-link btn btn-link"><a class="text-dark" asp-area="" asp-controller="Job" asp-action="ReportedJobs" asp-route-id="@Model.Id">Completed jobs</a></button>
+        <button type="button" class="nav-link btn btn-link"><a class="text-dark" asp-area="" asp-controller="User" asp-action="Show">Users</a></button>
+        <button type="button" class="nav-link btn btn-link"><a class="text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Invite users</a></button>
+        <hr />
+        <button type="button" class="nav-link btn btn-link"><a class="text-dark" asp-area="" asp-controller="Dashboard" asp-action="Projects">Back to projects</a></button>
+
+    </div>
+    <hr class="d-sm-none">
+</div>

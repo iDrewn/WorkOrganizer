@@ -122,7 +122,7 @@ namespace WorkOrganizer.Domain.Repositories
 
         public async Task<IEnumerable<Project>> SearchProject(string searchString)
         {
-            var searchProjects =  _context.Project.Where(s => s.Name.Contains(searchString));
+            var searchProjects = _context.Project.Where(s => s.Name.Contains(searchString));
             return searchProjects;
         }
     }

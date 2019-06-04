@@ -37,6 +37,13 @@ namespace WorkOrganizer.Controllers
         [HttpGet]
         public IActionResult ReportedJobs(int id)
         {
+            var project = _context.Project.FirstOrDefault(x => x.Id == id);
+
+            if (project == null)
+            {
+                return NotFound();
+            }
+
             var reportedJobs = _context.Job
                 .FromSql($"SELECT * FROM dbo.Job WHERE IsDone LIKE '1%'")
                 .Where(b => b.ProjectId == id)
@@ -48,9 +55,10 @@ namespace WorkOrganizer.Controllers
                 .Sum(b => b.Hours)
                 .ToString();
 
-            ViewBag.data = reportedTime;
+            ViewBag.ReportedTime = reportedTime;
+            ViewBag.ReportedJobs = reportedJobs;
 
-            return View(reportedJobs);
+            return View(project);
         }
 
         [HttpGet]

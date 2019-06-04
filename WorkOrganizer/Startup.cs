@@ -79,8 +79,9 @@ namespace WorkOrganizer
             services.AddScoped<IProjectRepository, ProjectRepository>();;
 
             //Services
-            services.AddScoped<Domain.Services.IProjectService, Domain.Services.ProjectService>();
-            services.AddScoped<IJobService, JobService>();
+            services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<Domain.Services.IJobService, Domain.Services.JobService>();
+            services.AddScoped<Areas.API.Services.IJobService, Areas.API.Services.JobService>();
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IFileService, FileService>();
@@ -152,7 +153,7 @@ namespace WorkOrganizer
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             
 
             app.UseStaticFiles();
