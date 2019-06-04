@@ -60,7 +60,7 @@ namespace WorkOrganizer.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-            [Required]
+            //[Required]
             [Display(Name = "Title ex. Admin or User")]
             public string Name { get; set; }
 
