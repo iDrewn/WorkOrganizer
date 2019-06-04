@@ -28,16 +28,25 @@ namespace WorkOrganizer.Areas.API.Controllers
         }
 
 
-        // GET: api/Projects                                 // alla projekt för en inloggad användare 
+        // GET: api/Projects                                 // alla projekt för en inloggad användare + sökning på projektnamn
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()        
+        public async Task<ActionResult<IEnumerable<Project>>> GetProjects(string name)        
         {
             var userId = HttpContext.User.FindFirst("userid").Value;       
             
             var userIdGuid = new Guid(userId);
 
-            var allProjects = await projectService.GetProjectsByUserId(userIdGuid.ToString());
+            IEnumerable<Project> allProjects;
 
+            if(name == null)
+            {
+               allProjects = await projectService.GetProjectsByUserId(userIdGuid.ToString());
+            }
+            else
+            {
+                allProjects = await projectService.SearchProjectAsync(name);
+            }
+        
             return Ok(allProjects);
         }
         
@@ -62,10 +71,10 @@ namespace WorkOrganizer.Areas.API.Controllers
         {
             var newProject = await projectService.EditProject(id, project.Name, project.StartDate, project.Description);
 
-            if (id != project.Id)
-            {
-                return BadRequest();
-            }
+            //if (id != project.Id)
+            //{
+            //    return BadRequest();
+            //}
 
             return NoContent();
         }

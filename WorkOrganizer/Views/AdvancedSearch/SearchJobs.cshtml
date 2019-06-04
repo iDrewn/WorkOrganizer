@@ -1,10 +1,14 @@
 ﻿@model IEnumerable<WorkOrganizer.Domain.Entities.Job>
 
 @{
-    ViewData["Title"] = "Search Jobs";
+    ViewData["Title"] = "Jobs";
 }
 
-<h1>Search Jobs</h1>
+<div class="text-center">
+    <h1 class="display-4">Searched results</h1>
+</div>
+
+<h2>Jobs</h2>
 
 <table class="table">
     <thead>
@@ -25,7 +29,10 @@
                 @Html.DisplayNameFor(model => model.Hours)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsDone)
+                Completed
+            </th>
+            <th>
+                Project
             </th>
             <th></th>
         </tr>
@@ -52,7 +59,10 @@
                 @Html.DisplayFor(modelItem => item.IsDone)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                @Html.DisplayFor(modelItem => item.ProjectId)
+            </td>
+            <td>
+                <a asp-controller="Job" asp-action="EditJob" asp-route-id="@item.Id">Edit</a>
             </td>
         </tr>
 }

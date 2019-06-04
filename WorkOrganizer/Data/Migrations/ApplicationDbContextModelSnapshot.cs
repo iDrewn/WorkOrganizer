@@ -15,7 +15,7 @@ namespace WorkOrganizer.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -256,6 +256,27 @@ namespace WorkOrganizer.Data.Migrations
                     b.ToTable("Project");
                 });
 
+            modelBuilder.Entity("WorkOrganizer.Domain.Entities.ProjectMember", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsAdmin");
+
+                    b.Property<string>("MemberId");
+
+                    b.Property<int?>("ProjectId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MemberId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("Member");
+                });
+
             modelBuilder.Entity("WorkOrganizer.Domain.Entities.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -340,6 +361,17 @@ namespace WorkOrganizer.Data.Migrations
                     b.HasOne("WorkOrganizer.Domain.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("WorkOrganizer.Domain.Entities.ProjectMember", b =>
+                {
+                    b.HasOne("WorkOrganizer.Domain.Entities.ApplicationUser", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId");
+
+                    b.HasOne("WorkOrganizer.Domain.Entities.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId");
                 });
 #pragma warning restore 612, 618
         }

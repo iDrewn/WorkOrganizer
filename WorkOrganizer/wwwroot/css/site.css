@@ -55,3 +55,12 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+/* Background
+-------------------------------------------------- */
+body {
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%,rgba(255,255,255,0.4) 100%), url(/images/curve-1.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}

@@ -1,40 +1,43 @@
 ﻿@model IEnumerable<WorkOrganizer.Domain.Entities.ApplicationUser>
 
 @{
-    ViewData["Title"] = "Search Users";
+    ViewData["Title"] = "Users";
 }
 
-<h1>Search Users</h1>
+<div class="text-center">
+    <h1 class="display-4">Searched results</h1>
+</div>
+
+<h2>Users</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                E-mail
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                First name
             </th>
-            <th></th>
+            <th>
+                Last name
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+        </tr>
         }
     </tbody>
 </table>

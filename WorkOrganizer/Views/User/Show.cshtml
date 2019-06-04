@@ -3,9 +3,12 @@
     ViewData["Title"] = "Users";
 }
 
-<h1>List of Users:</h1>
+<div class="text-center">
+    <h1 class="display-4">List of users</h1>
+</div>
+<br/>
 
-
+@*
 <div class="table float-left" style="width:80%">
     <div>
         @foreach (var item in Model)
@@ -21,3 +24,36 @@
         }
     </div>
 </div>
+*@
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            E-mail
+        </th>
+        <th>
+            First name
+        </th>
+        <th>
+            Last name
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

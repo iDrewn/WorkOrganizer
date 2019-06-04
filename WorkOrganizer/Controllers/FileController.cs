@@ -1,14 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using WorkOrganizer.Data;
 
 namespace WorkOrganizer.Controllers
@@ -49,7 +46,6 @@ namespace WorkOrganizer.Controllers
 
             using (var stream = new FileStream(pathToFile, FileMode.Create))
             {
-
                 await file.CopyToAsync(stream);
             }
 
@@ -64,6 +60,48 @@ namespace WorkOrganizer.Controllers
             public IFormFile Name { get; set; }
             public IFormFile Uri { get; set; }
         }
+
+        [HttpGet]           //browser/web-delen stödjer bara get och post. För API-delen så kan man även nyttja [HttpDelete]
+        public async Task<IActionResult> DeleteFile(int projectId, int fileId)
+        {
+            var fileToRemove = await context.File.FirstOrDefaultAsync(m => m.Id == fileId);
+
+            if (fileToRemove != null)
+            {
+                context.File.Remove(fileToRemove);
+                await context.SaveChangesAsync();
+            }
+
+            string path_Root = hostingEnvironment.WebRootPath;
+
+            string pathToFile = path_Root + fileToRemove.Uri;
+            
+            if (System.IO.File.Exists(pathToFile))
+            {
+                System.IO.File.Delete(pathToFile);
+            }
+
+            return RedirectToAction("Show", new { Id = projectId });
+        }
+
+
+
+
+
+
+
+        //public async Task<IActionResult> DeleteRequest(int id)
+        //{
+        //    var fileRemove = await context.File.FirstOrDefaultAsync(m => m.Id == id);
+        //    if (fileRemove != null)
+        //    {
+        //        context.File.Remove(fileRemove);
+        //        await context.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return RedirectToAction("Show");
+        //}
+
     }
 
     public interface IFileService
