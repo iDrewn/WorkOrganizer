@@ -1,9 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WorkOrganizer.Data;
 using WorkOrganizer.Domain.Entities;
 
@@ -77,9 +76,15 @@ namespace WorkOrganizer.Domain.Repositories
 
         public async Task<IEnumerable<Project>> GetAllByUserId(string userId)
         {
-            var projects = _context.Project.Where(x => x.IdentityUserId == userId);
+            var allProjects = new List<Project>();
 
-            return await projects.ToListAsync();
+            var ownProjects = _context.Project.Where(x => x.IdentityUserId == userId).ToList();
+            var memberProjects = _context.Member.Where(x => x.MemberId == userId).Include(x => x.Project).Select(x => x.Project).ToList();
+
+            allProjects.AddRange(ownProjects);
+            allProjects.AddRange(memberProjects);
+
+            return allProjects;
         }
 
         
