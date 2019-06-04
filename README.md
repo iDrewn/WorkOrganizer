@@ -7,4 +7,4 @@ WorkOrganizer is a C# .NET web-application for projects.
 
 [Webpage](https://workorganizer.azurewebsites.net/)
 
-[Frontpage](https://workorganizer.azurewebsites.net/images/firstpage.jpg)
+![Frontpage](https://workorganizer.azurewebsites.net/images/firstpage.jpg)
