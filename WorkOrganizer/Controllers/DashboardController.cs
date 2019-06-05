@@ -71,19 +71,12 @@ namespace ProMan.Controllers
         }
   
         // POST: Dashboard/CreateProject
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreateProject([Bind("Id,Name,StartDate,Description,IdentityUserId")] Project project) 
         {
             if (ModelState.IsValid)
-            {
-                //Kod från Tomas. Ska denna vara kvar?
-                // _context.Add(project);
-                //await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Projects));
-                
+            {                
                 var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
                 var newProject = projectService.CreateProject(project.Name, project.StartDate, project.EndDate, project.Description, userId);
@@ -91,9 +84,6 @@ namespace ProMan.Controllers
                 return RedirectToAction(nameof(Projects));
             }
             return View(project);
-
-
-            //return View(project);
         } 
 
         // GET: Dashboard/EditProject/5
@@ -110,8 +100,6 @@ namespace ProMan.Controllers
         }
 
         // POST: Dashboard/EditProject/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProject(int id, [Bind("Id,Name,StartDate,Description,IdentityUserId")] Project project)

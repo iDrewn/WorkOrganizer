@@ -15,11 +15,5 @@ namespace WorkOrganizer.Domain.Repositories
         Task<Job> FindJobById(int? id);
         Task<bool> DeleteJobAsync(int? id);
         Task<IEnumerable<Job>> SearchJob(string searchString);
-
-        //Task<Project> GetByTitle(int id, string name);
-        //Task<IEnumerable<Project>> GetAllByUserId(string userId);
-        //Task<Project> FindJobById(int? id);
-        //Task<Project> UpdateJobById(Project project);
-        //Task<Project> JobDetalisByIdAsync(int? id);
     }
 }

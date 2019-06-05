@@ -15,6 +15,5 @@ namespace WorkOrganizer.Domain.Services
         Task<Job> FindJobByIdAsync(int? id);
         Task<bool> DeleteJobAsync(int? id);
         Task<IEnumerable<Job>> SearchJob(string searchString);
-        //Task EditJobAsync(Job job);
     }
 }

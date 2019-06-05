@@ -7,8 +7,6 @@ namespace WorkOrganizer.Domain.Repositories
 {
     public interface IProjectRepository
     {
-
-        
         Task<Project> EditProject(int projectId, string name, DateTime startDate, string description);
         Task<bool> DeleteAsync(int? id);
         Task<IEnumerable<Project>> GetAsync();
