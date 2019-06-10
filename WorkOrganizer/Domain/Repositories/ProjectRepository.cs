@@ -22,13 +22,6 @@ namespace WorkOrganizer.Domain.Repositories
         {
             var newProject = new Project(name, startDate, endDate, description, identityUserId);
 
-            //newProject.Name = name;
-            //newProject.StartDate = startDate;
-            //newProject.EndDate = endDate;
-            //newProject.Description = description;
-            //newProject.IdentityUserId = identityUserId;
-
-
             _context.Project.Add(newProject);
             await _context.SaveChangesAsync();
             return newProject;
@@ -81,7 +74,7 @@ namespace WorkOrganizer.Domain.Repositories
             var ownProjects = _context.Project.Where(x => x.IdentityUserId == userId).ToList();
             var memberProjects = _context.Member.Where(x => x.MemberId == userId).Include(x => x.Project).Select(x => x.Project).ToList();
 
-            allProjects.AddRange(ownProjects);
+            //allProjects.AddRange(ownProjects);
             allProjects.AddRange(memberProjects);
 
             return allProjects;
@@ -97,7 +90,7 @@ namespace WorkOrganizer.Domain.Repositories
         }
 
       
-        public async Task<Project> UpdateProjectById(Project project) // ändra fr UpdateProjectById till UpdateProject
+        public async Task<Project> UpdateProjectById(Project project)
         {
             var proj = await _context.Project.FindAsync(project.Id);
 

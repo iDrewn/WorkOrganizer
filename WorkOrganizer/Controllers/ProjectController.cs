@@ -54,27 +54,5 @@ namespace WorkOrganizer.Controllers
 
             return Ok(allProjects);
         }
-
-        //[HttpGet]
-        //public async Task<IEnumerable<Project>> GetAll(string OnlineUserId)
-        //{
-        //    //return await _dbContext.Projects.Where(x => x.IdentityUserId == onlineUserId);
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetById(int id)
-        //{
-        //    var allProjectsById = await projectService.GetProjectByTitle(id);
-
-        //    return Ok(allProjectsById);
-        //}
-
-        //[HttpPut]
-        //public async Task<IActionResult> PutProject(Project project)
-        //{
-        //    var newProject = await projectService.EditProject(project.Name, project.StartDate, project.Description);
-
-        //    return Created($"{project.Name}, {project.StartDate}, {project.Description}", newProject);
-        //}
     }
 }
