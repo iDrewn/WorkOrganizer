@@ -28,7 +28,7 @@ namespace WorkOrganizer.Controllers
 
             if (loadProject == null)
             {
-                return NotFound("No projects");
+                return NotFound("No jobs");
             }
 
             return View(loadProject);
@@ -137,7 +137,8 @@ namespace WorkOrganizer.Controllers
             _context.Job.Remove(job);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
+            return RedirectToAction("Projects", "Dashboard");
         }
 
         private bool ProjectExists(int id)
