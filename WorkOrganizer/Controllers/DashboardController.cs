@@ -73,16 +73,27 @@ namespace ProMan.Controllers
         // POST: Dashboard/CreateProject
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateProject([Bind("Id,Name,StartDate,Description,IdentityUserId")] Project project) 
+        public IActionResult CreateProject(Project project) 
         {
             if (ModelState.IsValid)
             {                
                 var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
                 var newProject = projectService.CreateProject(project.Name, project.StartDate, project.EndDate, project.Description, userId);
+    
+                var projectMember = new ProjectMember
+                {
+                    ProjectId = newProject.Id,
+                    MemberId = userId
+                };
+
+                context.Member.Add(projectMember);
+
+                context.SaveChanges();
 
                 return RedirectToAction(nameof(Projects));
             }
+
             return View(project);
         } 
 

@@ -18,10 +18,10 @@ namespace WorkOrganizer.Domain.Services
         }
 
         
-        public async Task<Project> CreateProject(string name, DateTime startDate, DateTime endDate, string description, string identityUserId)
+        public Project CreateProject(string name, DateTime startDate, DateTime endDate, string description, string identityUserId)
 
         {
-            return await _projectRepository.Create(name, startDate, endDate, description, identityUserId);
+            return _projectRepository.Create(name, startDate, endDate, description, identityUserId);
         }
 
         public async Task<bool> DeleteProject(int? id)
