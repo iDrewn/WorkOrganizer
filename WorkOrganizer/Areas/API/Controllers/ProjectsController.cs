@@ -81,13 +81,13 @@ namespace WorkOrganizer.Areas.API.Controllers
 
         // POST: api/Projects
         [HttpPost]
-        public async Task<ActionResult<Project>> PostProject(Project project)
+        public ActionResult<Project> PostProject(Project project)
         {
             var userId = HttpContext.User.FindFirst("userid").Value;
 
             var IdentityUserId = new Guid(userId);
 
-            var newProject = await projectService.CreateProject(project.Name, project.StartDate, project.EndDate, project.Description, IdentityUserId.ToString());
+            var newProject = projectService.CreateProject(project.Name, project.StartDate, project.EndDate, project.Description, IdentityUserId.ToString());
 
             return Created($"/api/projects/{newProject.Id}", newProject);
         }

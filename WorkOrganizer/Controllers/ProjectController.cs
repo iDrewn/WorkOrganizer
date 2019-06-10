@@ -19,13 +19,13 @@ namespace WorkOrganizer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostProject(Project project)
+        public IActionResult PostProject(Project project)
         {
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             var IdentityUserId = new Guid(userId);
 
-            var newProject = await projectService.CreateProject(project.Name, project.StartDate, project.EndDate, project.Description, IdentityUserId.ToString()); 
+            var newProject = projectService.CreateProject(project.Name, project.StartDate, project.EndDate, project.Description, IdentityUserId.ToString()); 
 
             return Created($"{project.Name}, {project.StartDate}, {project.Description}, {project.IdentityUserId}", newProject); 
         }

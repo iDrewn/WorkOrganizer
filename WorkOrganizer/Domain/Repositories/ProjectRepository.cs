@@ -16,14 +16,15 @@ namespace WorkOrganizer.Domain.Repositories
         {
             _context = context;
         }
-
         
-        public async Task<Project> Create(string name, DateTime startDate, DateTime endDate, string description, string identityUserId)
+        public Project Create(string name, DateTime startDate, DateTime endDate, string description, string identityUserId)
         {
             var newProject = new Project(name, startDate, endDate, description, identityUserId);
 
             _context.Project.Add(newProject);
-            await _context.SaveChangesAsync();
+
+             _context.SaveChanges();
+
             return newProject;
         }
 
