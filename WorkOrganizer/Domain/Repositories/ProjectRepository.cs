@@ -74,7 +74,7 @@ namespace WorkOrganizer.Domain.Repositories
             var ownProjects = _context.Project.Where(x => x.IdentityUserId == userId).ToList();
             var memberProjects = _context.Member.Where(x => x.MemberId == userId).Include(x => x.Project).Select(x => x.Project).ToList();
 
-            allProjects.AddRange(ownProjects);
+            //allProjects.AddRange(ownProjects);
             allProjects.AddRange(memberProjects);
 
             return allProjects;
