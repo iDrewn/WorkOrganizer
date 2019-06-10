@@ -46,14 +46,18 @@
 </div>
 <div class="table float-right" style="width:80%">
     <div>
-        @foreach (var file in Model.Files)
-        {      
-            <table class="table">
-                <tr>
-                    <td>@file.Name</td>
-                    <td><a href="@file.Uri" target="_blank" class="float-right">Watch</a></td>                 
-                </tr>
-            </table>
-        }
+            @foreach (var file in Model.Files)
+            {
+                <table class="table">
+                    <tr>
+                        <td>@file.Name</td>
+                        <td class="float-right">
+                            <a href="@file.Uri" target="_blank">Watch</a> |
+                            <a asp-controller="FileUpload" asp-action="DeleteFile" asp-route-projectId="@Model.Id" asp-route-fileId="@file.Id">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            }
     </div>
+    
 </div>

@@ -1,6 +1,6 @@
 ﻿@model WorkOrganizer.Domain.Entities.Project
 @{
-    ViewData["Title"] = "FileUpload";
+    ViewData["Title"] = "Upload file";
 }
 
 <div class="text-center">
@@ -34,7 +34,6 @@
             List of files:
         </h4>
    <div>
-        <div>
             @foreach (var file in Model.Files)
             {
                 <table class="table">
@@ -47,7 +46,5 @@
                     </tr>
                 </table>
             }
-        </div>
-    </div>
-
+   </div>
 </div>
